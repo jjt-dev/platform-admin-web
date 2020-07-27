@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import './index.less'
-import { Form } from 'antd'
+import { Form, message } from 'antd'
 import { useSelector } from 'react-redux'
 import { EntityStatus, formLayout } from 'src/utils/const'
 import useFetch from 'src/hooks/useFetch'
@@ -9,6 +9,7 @@ import FormBottom from 'src/components/FormBottom'
 import FormSelect from 'src/components/FormSelect'
 import FormInput from 'src/components/FormInput'
 import FormImage from 'src/components/FormImage'
+import { buildParameters } from 'src/utils/common'
 
 const School = ({ match, history }) => {
   const { id: schoolId } = match.params
@@ -25,16 +26,9 @@ const School = ({ match, history }) => {
   }, [fetchSchool, schoolId])
 
   const onFinish = async (values) => {
-    const { username, password } = values
-    console.log('value', values)
-    // try {
-    //   const result = await api.post(
-    //     `/common/login?username=${username}&password=${password}`
-    //   )
-    //   history.push('/')
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    await api.post(buildParameters(`/client/school/edit`, values))
+    message.success(`${status}学校成功`)
+    history.push('/school/list')
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -71,6 +65,7 @@ const School = ({ match, history }) => {
           label="引荐人"
           name="refereeId"
           message="请选择引荐人"
+          required={false}
         />
         <FormInput label="描述" name="note" required={false} type="textarea" />
         <FormBottom path="/school/list" />
