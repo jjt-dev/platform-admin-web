@@ -1,6 +1,12 @@
 import React, { useMemo, useState } from 'react'
 import { Menu } from 'antd'
 import './index.less'
+import {
+  AccountBookOutlined,
+  AppstoreOutlined,
+  BookOutlined,
+  ContactsOutlined,
+} from '@ant-design/icons'
 
 const { SubMenu } = Menu
 const rootMenuPid = 1
@@ -14,6 +20,7 @@ const SideMenu = ({ history, location, navs = [] }) => {
     const rootNavKeys = rootNavs.map((item) => item.id)
     const menus = rootNavs.map((root) => {
       root.children = navs.filter((nav) => nav.pid === root.id)
+      root.icon = menuIcons[root.link]
       return root
     })
     return [rootNavKeys, menus]
@@ -55,7 +62,11 @@ const SideMenu = ({ history, location, navs = [] }) => {
     >
       {menus.map((item) => {
         return (
-          <SubMenu key={item.id} title={<span>{item.title}</span>}>
+          <SubMenu
+            key={item.id}
+            title={<span>{item.title}</span>}
+            icon={item.icon}
+          >
             {item.children.map((child) => (
               <Menu.Item
                 key={child.id}
@@ -72,3 +83,10 @@ const SideMenu = ({ history, location, navs = [] }) => {
 }
 
 export default SideMenu
+
+const menuIcons = {
+  '/system': <AppstoreOutlined />,
+  '/subject': <BookOutlined />,
+  '/school': <ContactsOutlined />,
+  '/business': <AccountBookOutlined />,
+}

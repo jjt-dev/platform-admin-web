@@ -29,6 +29,11 @@ export const getColumns = (deleteSchool) => [
     },
   },
   {
+    title: '开通期数',
+    dataIndex: 'serviceSpanCount',
+    key: 'serviceSpanCount',
+  },
+  {
     title: '联系人',
     dataIndex: 'linkMan',
     key: 'linkMan',

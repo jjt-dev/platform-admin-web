@@ -25,9 +25,15 @@ const App = () => {
     }
   }, [dispatch, isLoginPage])
 
+  useEffect(() => {
+    if (user) {
+      dispatch(appAction.getAllCourses())
+    }
+  }, [dispatch, user])
+
   return (
     <div className={classnames('app', { 'login-page': isLoginPage })}>
-      <Header user={user} />
+      {/* <Header user={user} /> */}
       <main>
         <SideMenu history={history} location={location} navs={user?.navs} />
         <ErrorBoundary>

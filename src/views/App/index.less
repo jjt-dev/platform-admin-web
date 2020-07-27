@@ -93,10 +93,6 @@ code {
   }
 }
 
-.ant-form-item-explain {
-  display: none;
-}
-
 .table-action {
   cursor: pointer;
   color: #1890ff;
@@ -108,4 +104,40 @@ code {
 
 .click {
   cursor: pointer;
+}
+
+.jjt-form {
+  &-title {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .ant-form {
+    margin-top: 20px;
+
+    &-item {
+      width: 450px;
+      margin: 0 auto;
+      margin-bottom: 25px;
+    }
+  }
+
+  .form-bottom {
+    width: 340px !important;
+
+    .ant-form-item-control {
+      &-input {
+        &-content {
+          display: flex;
+          justify-content: space-between;
+
+          button {
+            width: 120px;
+          }
+        }
+      }
+    }
+  }
 }

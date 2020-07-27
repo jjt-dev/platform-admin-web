@@ -1,11 +1,27 @@
 export const timeFormat = 'YYYY-MM-DD HH:mm'
 export const dateFormat = 'YYYY-MM-DD'
 
-export const FormLayout = {
+export const formLayout = {
   labelCol: {
-    span: 8,
+    xs: { span: 24 },
+    sm: { span: 5 },
   },
   wrapperCol: {
-    span: 16,
+    xs: { span: 24 },
+    sm: { span: 16 },
   },
+}
+
+export const emptyLayout = {
+  labelCol: {},
+  wrapperCol: {},
+}
+
+export const tailLayout = {
+  wrapperCol: { offset: 8, span: 16 },
+}
+
+export const EntityStatus = {
+  CREATE: '新增',
+  EDIT: '编辑',
 }

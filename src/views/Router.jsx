@@ -1,6 +1,7 @@
 import React from 'react'
 import { Switch, Redirect } from 'react-router'
 import { Route } from 'react-router-dom'
+import School from './Custom/School/School'
 import SchoolList from './Custom/School/SchoolList'
 import Login from './Login'
 import Welcome from './Welcome'
@@ -11,6 +12,16 @@ export const routes = [
   {
     path: '/school/list',
     comp: SchoolList,
+  },
+  {
+    path: '/school',
+    comp: School,
+    back: { path: '/school/list', breadcrumbs: ['学校列表', '新增学校'] },
+  },
+  {
+    path: '/school/:id',
+    comp: School,
+    back: { path: '/school/list', breadcrumbs: ['学校列表', '编辑学校'] },
   },
 ]
 
