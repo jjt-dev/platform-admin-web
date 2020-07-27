@@ -27,6 +27,8 @@ const App = () => {
     )
   }, [location])
 
+  const hasBreadcrumb = activeRoute && activeRoute.back
+
   useEffect(() => {
     if (!isLoginPage) {
       dispatch(appAction.getUserInfo())
@@ -41,7 +43,12 @@ const App = () => {
   }, [dispatch, user])
 
   return (
-    <div className={classnames('app', { 'login-page': isLoginPage })}>
+    <div
+      className={classnames('app', {
+        'login-page': isLoginPage,
+        'breadcrumb-active': hasBreadcrumb,
+      })}
+    >
       <Header user={user} />
       <main>
         <SideMenu

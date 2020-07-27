@@ -3,6 +3,8 @@ import { Switch, Redirect } from 'react-router'
 import { Route } from 'react-router-dom'
 import School from './Custom/School/School'
 import SchoolList from './Custom/School/SchoolList'
+import SchoolAdmin from './Custom/SchoolAdmin/SchoolAdmin'
+import SchoolAdminList from './Custom/SchoolAdmin/SchoolAdminList'
 import Login from './Login'
 import Welcome from './Welcome'
 
@@ -13,7 +15,7 @@ export const routes = [
     comp: SchoolList,
   },
   {
-    path: '/school',
+    path: '/school/edit',
     menuPath: '/school/list',
     comp: School,
     back: {
@@ -22,12 +24,35 @@ export const routes = [
     },
   },
   {
-    path: '/school/:id',
+    path: '/school/edit/:id',
     menuPath: '/school/list',
     comp: School,
     back: {
       path: '/school/list',
       breadcrumbs: ['学校列表', '编辑学校'],
+    },
+  },
+  {
+    path: '/school/user',
+    menuPath: '/school/user',
+    comp: SchoolAdminList,
+  },
+  {
+    path: '/school/user/edit',
+    menuPath: '/school/user',
+    comp: SchoolAdmin,
+    back: {
+      path: '/school/user',
+      breadcrumbs: ['学校管理员', '新增管理员'],
+    },
+  },
+  {
+    path: '/school/user/edit/:id',
+    menuPath: '/school/user',
+    comp: SchoolAdmin,
+    back: {
+      path: '/school/user',
+      breadcrumbs: ['学校管理员', '编辑管理员'],
     },
   },
   { path: '/', comp: Welcome },

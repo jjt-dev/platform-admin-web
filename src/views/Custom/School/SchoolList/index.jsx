@@ -21,15 +21,15 @@ const SchoolList = ({ history }) => {
   }
 
   const editSchool = (school) => {
-    history.push(`/school/${school.id}`)
+    history.push(`/school/edit/${school.id}`)
   }
 
   return (
     <div className="page page-list school-list">
       <div className="page-list__title">学校列表</div>
       <ListHeader
-        fetchTable={SchoolList.fetchTable}
-        path="/school"
+        fetchTable={shoolList.fetchTable}
+        path="/school/edit"
         placeholder="请输入名称或联系方式"
       />
       <CustomTable
