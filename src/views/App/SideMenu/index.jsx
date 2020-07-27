@@ -13,10 +13,8 @@ import { routes } from 'src/views/Router'
 const { SubMenu } = Menu
 const rootMenuPid = 1
 
-const SideMenu = ({ history, location, navs = [] }) => {
+const SideMenu = ({ history, location, navs = [], activeRoute }) => {
   const [selectedKeys, setSelectedKeys] = useState([])
-  const { pathname } = location
-
   const [rootNavKeys, menus] = useMemo(() => {
     const rootNavs = navs.filter((nav) => nav.pid === rootMenuPid)
     const rootNavKeys = rootNavs.map((item) => item.id)
@@ -31,17 +29,16 @@ const SideMenu = ({ history, location, navs = [] }) => {
   const [defaultOpenKeys, defaultSelectedKeys] = useMemo(() => {
     let defaultSelectedKeys = []
     let defaultOpenKeys = []
-    const activeSubMenuPath = getActiveSubMenuPath(pathname)
     menus.forEach((menu) => {
       menu.children.forEach((subMenu) => {
-        if (activeSubMenuPath === subMenu.link) {
+        if (activeRoute.menuPath === subMenu.link) {
           defaultSelectedKeys = [`${subMenu.id}`]
           defaultOpenKeys = [`${menu.id}`]
         }
       })
     })
     return [defaultOpenKeys, defaultSelectedKeys]
-  }, [menus, pathname])
+  }, [menus, activeRoute])
 
   const onOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find((key) => !selectedKeys.includes(key))
@@ -92,9 +89,4 @@ const menuIcons = {
   '/subject': <BookOutlined />,
   '/school': <ContactsOutlined />,
   '/business': <AccountBookOutlined />,
-}
-
-const getActiveSubMenuPath = (pathname) => {
-  const activeRoute = routes.find((route) => !!matchPath(pathname, route.path))
-  return activeRoute.menuPath
 }
