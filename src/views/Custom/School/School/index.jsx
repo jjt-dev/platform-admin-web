@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './index.less'
 import { Form, message } from 'antd'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { EntityStatus, formLayout } from 'src/utils/const'
 import api from 'src/utils/api'
 import FormBottom from 'src/components/FormBottom'
@@ -10,8 +10,10 @@ import FormInput from 'src/components/FormInput'
 import FormImage from 'src/components/FormImage'
 import { buildParameters } from 'src/utils/common'
 import FormRadio from 'src/components/FormRadio'
+import * as appAction from 'src/actions/app'
 
 const School = ({ match, history }) => {
+  const dispatch = useDispatch()
   const { id: schoolId } = match.params
   const [school, setSchool] = useState()
   const [form] = Form.useForm()
@@ -36,6 +38,7 @@ const School = ({ match, history }) => {
     }
     await api.post(buildParameters(`/client/school/edit`, values))
     message.success(`${status}学校成功`)
+    dispatch(appAction.getAllSchools())
     history.push('/school/list')
   }
 

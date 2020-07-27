@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react'
-import { matchPath } from 'react-router'
 import { Menu } from 'antd'
 import './index.less'
 import {
@@ -8,12 +7,11 @@ import {
   BookOutlined,
   ContactsOutlined,
 } from '@ant-design/icons'
-import { routes } from 'src/views/Router'
 
 const { SubMenu } = Menu
 const rootMenuPid = 1
 
-const SideMenu = ({ history, location, navs = [], activeRoute }) => {
+const SideMenu = ({ history, navs = [], activeRoute }) => {
   const [selectedKeys, setSelectedKeys] = useState([])
   const [rootNavKeys, menus] = useMemo(() => {
     const rootNavs = navs.filter((nav) => nav.pid === rootMenuPid)

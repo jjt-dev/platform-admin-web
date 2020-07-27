@@ -21,7 +21,7 @@ const SchoolAdminList = ({ history }) => {
   }
 
   const editAdmin = (admin) => {
-    history.push(`/school/user/${admin.id}`)
+    history.push(`/school/user/edit/${admin.id}`)
   }
 
   return (
@@ -29,7 +29,7 @@ const SchoolAdminList = ({ history }) => {
       <div className="page-list__title">管理员列表</div>
       <ListHeader
         fetchTable={shoolAdmins.fetchTable}
-        path="/school/user"
+        path="/school/user/edit"
         placeholder="请输入名称或联系方式"
       />
       <CustomTable

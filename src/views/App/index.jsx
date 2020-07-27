@@ -39,6 +39,7 @@ const App = () => {
     if (user) {
       dispatch(appAction.getAllCourses())
       dispatch(appAction.getAllReferees())
+      dispatch(appAction.getAllSchools())
     }
   }, [dispatch, user])
 

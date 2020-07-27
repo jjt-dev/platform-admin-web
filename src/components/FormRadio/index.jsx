@@ -4,6 +4,7 @@ import React from 'react'
 const FormRadio = ({ label, name }) => {
   return (
     <Form.Item
+      initialValue={true}
       rules={[{ required: true }]}
       label={label ?? '启用'}
       name={name ?? 'isEnable'}

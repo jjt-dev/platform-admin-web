@@ -5,7 +5,7 @@ import ImageUpload from '../ImageUpload'
 const FormImage = ({ form, label, name, message, imageUrl }) => {
   const handleLogoChange = (imageUrl) => {
     form.setFieldsValue({
-      logoUrl: imageUrl,
+      [name]: imageUrl,
     })
   }
 

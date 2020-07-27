@@ -8,6 +8,7 @@ export const APP_OAUTH_USER = 'APP_OAUTH_USER'
 
 export const GET_ALL_COURSE = 'GET_ALL_COURSE'
 export const GET_ALL_REFEREE = 'GET_ALL_REFEREE'
+export const GET_ALL_SCHOOL = 'GET_ALL_SCHOOL'
 
 // 显示/隐藏顶层loading bar
 export const showLoadingBar = createAction(APP_SHOW_LOADING)
@@ -24,4 +25,8 @@ export const getAllCourses = createAction(GET_ALL_COURSE, () =>
 
 export const getAllReferees = createAction(GET_ALL_REFEREE, () =>
   api.get(`/business/referee/page?page=1&rows=10000`)
+)
+
+export const getAllSchools = createAction(GET_ALL_SCHOOL, () =>
+  api.get(`/client/school/page?page=1&rows=10000`)
 )

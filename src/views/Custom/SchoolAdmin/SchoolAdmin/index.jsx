@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './index.less'
 import { Form, message } from 'antd'
-import { useSelector } from 'react-redux'
 import { EntityStatus, formLayout } from 'src/utils/const'
 import api from 'src/utils/api'
 import FormBottom from 'src/components/FormBottom'
@@ -10,12 +9,13 @@ import FormInput from 'src/components/FormInput'
 import FormImage from 'src/components/FormImage'
 import { buildParameters } from 'src/utils/common'
 import FormRadio from 'src/components/FormRadio'
+import { useSelector } from 'react-redux'
 
 const SchoolAdmin = ({ match, history }) => {
   const { id: adminId } = match.params
+  const { allSchools } = useSelector((state) => state.app)
   const [form] = Form.useForm()
   const [admin, setAdmin] = useState()
-  const { allCourses, allReferees } = useSelector((state) => state.app)
   const isEdit = !!adminId
   const status = isEdit ? EntityStatus.EDIT : EntityStatus.CREATE
 
@@ -52,33 +52,26 @@ const SchoolAdmin = ({ match, history }) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
-        <FormSelect
-          options={allCourses}
-          label="科目"
-          name="courseId"
-          message="请选择科目"
-        />
-        <FormInput label="名称" name="name" />
+        <FormInput label="用户名" name="username" disabled={isEdit} />
+        <FormInput label="昵称" name="nickname" />
+        {!isEdit && <FormInput label="密码" name="password" />}
         <FormImage
           form={form}
           label="头像"
-          name="logoUrl"
+          name="faceUrl"
           message="请上传头像"
-          imageUrl={admin?.logoUrl}
+          imageUrl={admin?.faceUrl}
         />
-        <FormInput label="地址" name="address" />
-        <FormInput label="联系人" name="linkMan" />
-        <FormInput label="联系电话" name="linkPhone" />
-        <FormRadio />
+        <FormInput label="联系电话" name="phone" />
+        <FormInput label="邮箱" name="email" />
         <FormSelect
-          options={allReferees}
-          label="引荐人"
-          name="refereeId"
-          message="请选择引荐人"
-          required={false}
+          options={allSchools}
+          label="学校"
+          name="schoolId"
+          message="请选择学校"
         />
-        <FormInput label="描述" name="note" required={false} type="textarea" />
-        <FormBottom path="/school/list" />
+        <FormRadio />
+        <FormBottom path="/school/user" />
       </Form>
     </div>
   )

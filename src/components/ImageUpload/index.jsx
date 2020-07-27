@@ -1,6 +1,7 @@
 import React from 'react'
-import { Upload, Icon } from 'antd'
+import { Upload } from 'antd'
 import { getApiRootImg, getDomain } from 'src/utils/common'
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 
 function getBase64(img, callback) {
   const reader = new FileReader()
@@ -54,7 +55,7 @@ class ImageUpload extends React.Component {
   render() {
     const uploadButton = (
       <div>
-        <Icon type={this.state.loading ? 'loading' : 'plus'} />
+        {this.state.loading ? <LoadingOutlined /> : <PlusOutlined />}
         <div className="ant-upload-text">照片</div>
       </div>
     )

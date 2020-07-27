@@ -6,6 +6,7 @@ import {
   APP_OAUTH_USER,
   GET_ALL_COURSE,
   GET_ALL_REFEREE,
+  GET_ALL_SCHOOL,
 } from 'src/actions/app'
 
 const initState = {
@@ -13,6 +14,7 @@ const initState = {
   user: null,
   allCourses: [],
   allReferees: [],
+  allSchools: [],
 }
 
 const app = handleActions(
@@ -46,6 +48,12 @@ const app = handleActions(
       return {
         ...state,
         allReferees: result,
+      }
+    },
+    [GET_ALL_SCHOOL]: (state, { payload }) => {
+      return {
+        ...state,
+        allSchools: payload.data,
       }
     },
   },

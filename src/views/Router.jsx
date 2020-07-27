@@ -68,7 +68,7 @@ const Router = () => (
     <Route component={Welcome} />
     <Redirect
       to={{
-        pathname: '/login',
+        pathname: '/school/list',
       }}
     />
   </Switch>

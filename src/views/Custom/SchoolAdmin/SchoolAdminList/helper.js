@@ -54,15 +54,9 @@ export const getColumns = (editAdmin, deleteAdmin) => [
     title: '操作',
     key: 'action',
     render: (text, record) => (
-      <>
-        <span className="table-action" onClick={() => editAdmin(record)}>
-          编辑
-        </span>
-        <Divider type="vertical" />
-        <span className="table-action" onClick={() => deleteAdmin(record)}>
-          删除
-        </span>
-      </>
+      <span className="table-action" onClick={() => editAdmin(record)}>
+        编辑
+      </span>
     ),
   },
 ]
