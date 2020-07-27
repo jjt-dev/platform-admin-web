@@ -5,12 +5,14 @@ import {
   APP_CLOSE_LOADING,
   APP_OAUTH_USER,
   GET_ALL_COURSE,
+  GET_ALL_REFEREE,
 } from 'src/actions/app'
 
 const initState = {
   loading: false,
   user: null,
   allCourses: [],
+  allReferees: [],
 }
 
 const app = handleActions(
@@ -37,6 +39,12 @@ const app = handleActions(
       return {
         ...state,
         allCourses: payload.data,
+      }
+    },
+    [GET_ALL_REFEREE]: (state, { payload }) => {
+      return {
+        ...state,
+        allReferees: payload.data,
       }
     },
   },

@@ -104,3 +104,5 @@ export const confirmDelete = ({ title, titleValue, path, callback }) => {
     },
   })
 }
+
+export const submitForm =

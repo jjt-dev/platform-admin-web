@@ -28,6 +28,7 @@ const App = () => {
   useEffect(() => {
     if (user) {
       dispatch(appAction.getAllCourses())
+      dispatch(appAction.getAllReferees())
     }
   }, [dispatch, user])
 

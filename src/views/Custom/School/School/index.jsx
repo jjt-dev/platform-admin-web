@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react'
 import './index.less'
-import { Form, Input, Button, Radio, message, Select } from 'antd'
+import { Form } from 'antd'
 import { useSelector } from 'react-redux'
 import { EntityStatus, formLayout } from 'src/utils/const'
-import { buildParameters } from 'src/utils/common'
 import useFetch from 'src/hooks/useFetch'
 import api from 'src/utils/api'
 import FormBottom from 'src/components/FormBottom'
-import ImageUpload from 'src/components/ImageUpload'
-
-const { Option } = Select
+import FormSelect from 'src/components/FormSelect'
+import FormInput from 'src/components/FormInput'
+import FormImage from 'src/components/FormImage'
 
 const School = ({ match, history }) => {
   const { id: schoolId } = match.params
   const [form] = Form.useForm()
-  const { allCourses } = useSelector((state) => state.app)
+  const { allCourses, allReferees } = useSelector((state) => state.app)
   const [schoolInEdit, fetchSchool] = useFetch()
   const isEdit = !!schoolId
   const status = isEdit ? EntityStatus.EDIT : EntityStatus.CREATE
@@ -27,24 +26,19 @@ const School = ({ match, history }) => {
 
   const onFinish = async (values) => {
     const { username, password } = values
-    try {
-      const result = await api.post(
-        `/common/login?username=${username}&password=${password}`
-      )
-      history.push('/')
-    } catch (e) {
-      console.log(e)
-    }
+    console.log('value', values)
+    // try {
+    //   const result = await api.post(
+    //     `/common/login?username=${username}&password=${password}`
+    //   )
+    //   history.push('/')
+    // } catch (e) {
+    //   console.log(e)
+    // }
   }
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
-  }
-
-  const handleLogoChange = (imageUrl) => {
-    form.setFieldsValue({
-      logoUrl: imageUrl,
-    })
   }
 
   return (
@@ -56,32 +50,29 @@ const School = ({ match, history }) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
-        <Form.Item
-          rules={[{ required: true, message: '请选择科目' }]}
+        <FormSelect
+          options={allCourses}
           label="科目"
           name="courseId"
-        >
-          <Select placeholder="请选择科目">
-            {allCourses.map((course) => (
-              <Option key={course.id} value={course.id}>
-                {course.name}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item rules={[{ required: true }]} label="名称" name="name">
-          <Input />
-        </Form.Item>
-        <Form.Item
-          rules={[{ required: true, message: '请上传头像' }]}
+          message="请选择科目"
+        />
+        <FormInput label="名称" name="name" />
+        <FormImage
+          form={form}
           label="头像"
           name="logoUrl"
-        >
-          <ImageUpload
-            callback={handleLogoChange}
-            imageUrl={schoolInEdit?.faceUrl}
-          />
-        </Form.Item>
+          message="请上传头像"
+        />
+        <FormInput label="地址" name="address" />
+        <FormInput label="联系人" name="linkMan" />
+        <FormInput label="联系电话" name="linkPhone" />
+        <FormSelect
+          options={allReferees}
+          label="引荐人"
+          name="refereeId"
+          message="请选择引荐人"
+        />
+        <FormInput label="描述" name="note" required={false} type="textarea" />
         <FormBottom path="/school/list" />
       </Form>
     </div>
