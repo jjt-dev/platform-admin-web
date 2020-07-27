@@ -30,6 +30,10 @@ class ImageUpload extends React.Component {
     imageUrl: buildUrl(this.props),
   }
 
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    this.setState({ ...this.state, imageUrl: buildUrl(nextProps) })
+  }
+
   handleChange = (info) => {
     if (info.file.status === 'uploading') {
       this.setState({ loading: true })

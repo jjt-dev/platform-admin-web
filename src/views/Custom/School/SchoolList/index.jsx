@@ -7,7 +7,7 @@ import ListHeader from 'src/components/ListHeader'
 
 const { useTableFetch } = CustomTable
 
-const SchoolList = () => {
+const SchoolList = ({ history }) => {
   const shoolList = useTableFetch(`/client/school/page`)
 
   const deleteSchool = (school) => {
@@ -20,6 +20,10 @@ const SchoolList = () => {
     confirmDelete(entity)
   }
 
+  const editSchool = (school) => {
+    history.push(`/school/${school.id}`)
+  }
+
   return (
     <div className="page page-list school-list">
       <div className="page-list__title">学校列表</div>
@@ -30,7 +34,7 @@ const SchoolList = () => {
       />
       <CustomTable
         {...shoolList}
-        columns={getColumns(deleteSchool)}
+        columns={getColumns(editSchool, deleteSchool)}
         rowKey="id"
       />
     </div>

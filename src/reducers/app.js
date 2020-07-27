@@ -42,9 +42,10 @@ const app = handleActions(
       }
     },
     [GET_ALL_REFEREE]: (state, { payload }) => {
+      const result = payload.data.concat([{ id: 0, name: '晋级通' }])
       return {
         ...state,
-        allReferees: payload.data,
+        allReferees: result,
       }
     },
   },

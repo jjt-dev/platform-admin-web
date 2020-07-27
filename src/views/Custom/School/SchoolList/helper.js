@@ -1,8 +1,9 @@
 import React from 'react'
 import { formatTime } from 'src/utils/common'
 import JjtAvatar from 'src/components/Avatar'
+import { Divider } from 'antd'
 
-export const getColumns = (deleteSchool) => [
+export const getColumns = (editSchool, deleteSchool) => [
   {
     title: '序号',
     key: 'index',
@@ -54,6 +55,10 @@ export const getColumns = (deleteSchool) => [
     key: 'action',
     render: (text, record) => (
       <>
+        <span className="table-action" onClick={() => editSchool(record)}>
+          编辑
+        </span>
+        <Divider type="vertical" />
         <span className="table-action" onClick={() => deleteSchool(record)}>
           删除
         </span>
