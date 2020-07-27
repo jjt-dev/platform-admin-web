@@ -33,6 +33,7 @@ const SideMenu = ({ history, navs = [] }) => {
       openKeys={selectedKeys}
       mode="inline"
       onOpenChange={onOpenChange}
+      theme="dark"
     >
       {menus.map((item) => {
         return (

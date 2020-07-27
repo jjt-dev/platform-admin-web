@@ -4,12 +4,8 @@ import CustomTable from '.'
 
 const defaultPageSizeOptions = ['10', '20', '30', '50', '100']
 
-const useTableFetch = (options = {}) => {
-  const {
-    path: defaultPath = null,
-    defaultValue = [],
-    ...defaultSearch
-  } = options
+const useTableFetch = (defaultPath = null, options = {}) => {
+  const { defaultValue = [], ...defaultSearch } = options
   const [path, setPath] = useState(defaultPath)
   const [data, setData] = useState(defaultValue)
   const [hasPagination, setHasPagination] = useState(true)
@@ -138,6 +134,7 @@ const useTableFetch = (options = {}) => {
         search,
         paginator,
         filters,
+        sorter,
         setData,
         setTotal,
         hasPagination

@@ -1,12 +1,17 @@
 import React from 'react'
 import { Switch, Redirect } from 'react-router'
 import { Route } from 'react-router-dom'
+import SchoolList from './Custom/School/SchoolList'
 import Login from './Login'
 import Welcome from './Welcome'
 
 export const routes = [
   { path: '/', comp: Welcome },
   { path: '/login', comp: Login },
+  {
+    path: '/school/list',
+    comp: SchoolList,
+  },
 ]
 
 const Router = () => (

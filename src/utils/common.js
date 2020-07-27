@@ -1,6 +1,8 @@
 import * as queryString from 'query-string'
 import moment from 'moment'
 import { message } from 'antd'
+import confirm from 'antd/lib/modal/confirm'
+import api from './api'
 
 export const parseSearches = (location) => {
   return queryString.parse(location.search)
@@ -86,4 +88,19 @@ export const copyToClipboard = (clipboardContent) => {
     message.error('不能使用这种方法复制内容')
   }
   document.body.removeChild(textArea)
+}
+
+export const confirmDelete = ({ title, titleValue, path, callback }) => {
+  confirm({
+    title: `请问您确认要删除该${title}吗?`,
+    content: `${title}名: ${titleValue}`,
+    onOk: async () => {
+      await api.post(path)
+      message.success(`${title}删除成功`)
+      callback && callback()
+    },
+    onCancel() {
+      console.log('Cancel')
+    },
+  })
 }
