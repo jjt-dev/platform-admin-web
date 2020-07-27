@@ -7,22 +7,31 @@ import Login from './Login'
 import Welcome from './Welcome'
 
 export const routes = [
-  { path: '/', comp: Welcome },
-  { path: '/login', comp: Login },
   {
     path: '/school/list',
+    menuPath: '/school/list',
     comp: SchoolList,
   },
   {
     path: '/school',
+    menuPath: '/school/list',
     comp: School,
-    back: { path: '/school/list', breadcrumbs: ['学校列表', '新增学校'] },
+    back: {
+      path: '/school/list',
+      breadcrumbs: ['学校列表', '新增学校'],
+    },
   },
   {
     path: '/school/:id',
+    menuPath: '/school/list',
     comp: School,
-    back: { path: '/school/list', breadcrumbs: ['学校列表', '编辑学校'] },
+    back: {
+      path: '/school/list',
+      breadcrumbs: ['学校列表', '编辑学校'],
+    },
   },
+  { path: '/', comp: Welcome },
+  { path: '/login', comp: Login },
 ]
 
 const Router = () => (

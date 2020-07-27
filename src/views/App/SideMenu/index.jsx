@@ -8,15 +8,10 @@ import {
   BookOutlined,
   ContactsOutlined,
 } from '@ant-design/icons'
+import { routes } from 'src/views/Router'
 
 const { SubMenu } = Menu
 const rootMenuPid = 1
-
-const matches = {
-  '/school/list': '/school/list',
-  '/school/:id': '/school/list',
-  '/school': '/school/list',
-}
 
 const SideMenu = ({ history, location, navs = [] }) => {
   const [selectedKeys, setSelectedKeys] = useState([])
@@ -100,8 +95,6 @@ const menuIcons = {
 }
 
 const getActiveSubMenuPath = (pathname) => {
-  const activePath = Object.keys(matches).find(
-    (key) => !!matchPath(pathname, key)
-  )
-  return matches[activePath]
+  const activeRoute = routes.find((route) => !!matchPath(pathname, route.path))
+  return activeRoute.menuPath
 }
