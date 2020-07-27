@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react'
+import { matchPath } from 'react-router'
 import { Menu } from 'antd'
 import './index.less'
 import {
@@ -10,6 +11,12 @@ import {
 
 const { SubMenu } = Menu
 const rootMenuPid = 1
+
+const matches = {
+  '/school/list': '/school/list',
+  '/school/:id': '/school/list',
+  '/school': '/school/list',
+}
 
 const SideMenu = ({ history, location, navs = [] }) => {
   const [selectedKeys, setSelectedKeys] = useState([])
@@ -29,9 +36,10 @@ const SideMenu = ({ history, location, navs = [] }) => {
   const [defaultOpenKeys, defaultSelectedKeys] = useMemo(() => {
     let defaultSelectedKeys = []
     let defaultOpenKeys = []
+    const activeSubMenuPath = getActiveSubMenuPath(pathname)
     menus.forEach((menu) => {
       menu.children.forEach((subMenu) => {
-        if (pathname.startsWith(subMenu.link)) {
+        if (activeSubMenuPath === subMenu.link) {
           defaultSelectedKeys = [`${subMenu.id}`]
           defaultOpenKeys = [`${menu.id}`]
         }
@@ -89,4 +97,11 @@ const menuIcons = {
   '/subject': <BookOutlined />,
   '/school': <ContactsOutlined />,
   '/business': <AccountBookOutlined />,
+}
+
+const getActiveSubMenuPath = (pathname) => {
+  const activePath = Object.keys(matches).find(
+    (key) => !!matchPath(pathname, key)
+  )
+  return matches[activePath]
 }
