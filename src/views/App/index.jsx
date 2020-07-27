@@ -27,7 +27,7 @@ const App = () => {
 
   return (
     <div className={classnames('app', { 'login-page': isLoginPage })}>
-      {/* <Header user={user} /> */}
+      <Header user={user} />
       <main>
         <SideMenu history={history} location={location} navs={user?.navs} />
         <ErrorBoundary>

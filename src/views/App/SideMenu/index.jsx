@@ -5,8 +5,9 @@ import './index.less'
 const { SubMenu } = Menu
 const rootMenuPid = 1
 
-const SideMenu = ({ history, navs = [] }) => {
+const SideMenu = ({ history, location, navs = [] }) => {
   const [selectedKeys, setSelectedKeys] = useState([])
+  const { pathname } = location
 
   const [rootNavKeys, menus] = useMemo(() => {
     const rootNavs = navs.filter((nav) => nav.pid === rootMenuPid)
@@ -18,6 +19,20 @@ const SideMenu = ({ history, navs = [] }) => {
     return [rootNavKeys, menus]
   }, [navs])
 
+  const [defaultOpenKeys, defaultSelectedKeys] = useMemo(() => {
+    let defaultSelectedKeys = []
+    let defaultOpenKeys = []
+    menus.forEach((menu) => {
+      menu.children.forEach((subMenu) => {
+        if (pathname.startsWith(subMenu.link)) {
+          defaultSelectedKeys = [`${subMenu.id}`]
+          defaultOpenKeys = [`${menu.id}`]
+        }
+      })
+    })
+    return [defaultOpenKeys, defaultSelectedKeys]
+  }, [menus, pathname])
+
   const onOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find((key) => !selectedKeys.includes(key))
     if (rootNavKeys.includes(latestOpenKey)) {
@@ -27,10 +42,13 @@ const SideMenu = ({ history, navs = [] }) => {
     }
   }
 
+  if (navs.length === 0) return null
+
   return (
     <Menu
       className="side-menu"
-      openKeys={selectedKeys}
+      defaultSelectedKeys={defaultSelectedKeys}
+      defaultOpenKeys={defaultOpenKeys}
       mode="inline"
       onOpenChange={onOpenChange}
       theme="dark"

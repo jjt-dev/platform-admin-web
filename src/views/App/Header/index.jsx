@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { Menu, Dropdown } from 'antd'
 import { goToLogin } from 'src/utils/api'
 import logo from 'src/images/logo.png'
-import * as FA from 'react-fontawesome'
 import './index.less'
 import { local, TOKEN } from 'src/utils/storage'
+import { UserOutlined } from '@ant-design/icons'
 
 const Header = ({ user }) => {
   const signout = () => {
@@ -26,7 +26,7 @@ const Header = ({ user }) => {
           <div className="header-right__user-signout">
             <Dropdown overlay={getLogoutDropdown(signout)}>
               <span>
-                <FA name="power-off" />
+                <UserOutlined />
                 {user?.username}
               </span>
             </Dropdown>
