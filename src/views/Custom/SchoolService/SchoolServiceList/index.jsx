@@ -39,6 +39,17 @@ const SchoolServiceList = ({ history }) => {
     history.push(`/school/serviceSpan/edit/${service.id}`)
   }
 
+  const payService = (service) => {
+    const entity = {
+      status: '支付',
+      title: '服务',
+      titleValue: service.title,
+      path: `/client/school/serviceSpan/state?id=${service.id}&state=10`,
+      callback: () => shoolServices.fetchTable(),
+    }
+    confirmUpdate(entity)
+  }
+
   return (
     <div className="page page-list school-service-list">
       <div className="page-list__title">服务期限列表</div>
@@ -48,7 +59,12 @@ const SchoolServiceList = ({ history }) => {
       />
       <CustomTable
         {...shoolServices}
-        columns={getColumns(editService, updateServiceStatus, deleteService)}
+        columns={getColumns(
+          editService,
+          updateServiceStatus,
+          payService,
+          deleteService
+        )}
         rowKey="id"
       />
     </div>

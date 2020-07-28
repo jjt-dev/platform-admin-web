@@ -77,19 +77,19 @@ const SchoolService = ({ match, history, location }) => {
    * 服务开始时间不得早于今天
    */
   const disabledStart = (current) => {
-    return current && current < moment().endOf('day')
+    return current && current < moment().subtract(1, 'days')
   }
   /**
    * 服务结束时间比开始时间要大于等一一个月
    */
   const disabledEnd = (current) => {
-    const isStartFromToday = current && current < moment().endOf('day')
+    const isStartFromToday = current && current < moment().subtract(1, 'days')
     if (isStartFromToday) return true
 
     const startDate = form.getFieldValue('startTime')
     if (!startDate) return false
 
-    const oneMonthLater = moment(startDate).add(1, 'M')
+    const oneMonthLater = moment(startDate).add(1, 'M').subtract(1, 'days')
     return oneMonthLater > current
   }
 

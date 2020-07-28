@@ -3,7 +3,12 @@ import { formatTime } from 'src/utils/common'
 import { Divider, Switch } from 'antd'
 import { FeeType, FeeStatus } from 'src/utils/const'
 
-export const getColumns = (editService, updateService, deleteService) => [
+export const getColumns = (
+  editService,
+  updateService,
+  payService,
+  deleteService
+) => [
   {
     title: '序号',
     key: 'index',
@@ -72,16 +77,29 @@ export const getColumns = (editService, updateService, deleteService) => [
   {
     title: '操作',
     key: 'action',
-    render: (text, record) => (
-      <>
-        <span className="table-action" onClick={() => editService(record)}>
-          编辑
-        </span>
-        <Divider type="vertical" />
-        <span className="table-action" onClick={() => deleteService(record)}>
-          删除
-        </span>
-      </>
-    ),
+    render: (text, record) => {
+      const isFullPayNotPaid =
+        record.feeType === FeeType.fullPay.id &&
+        record.currState === FeeStatus.fullPayNotPay
+      return (
+        <>
+          <span className="table-action" onClick={() => editService(record)}>
+            编辑
+          </span>
+          <Divider type="vertical" />
+          {isFullPayNotPaid && (
+            <>
+              <span className="table-action" onClick={() => payService(record)}>
+                去支付
+              </span>
+              <Divider type="vertical" />
+            </>
+          )}
+          <span className="table-action" onClick={() => deleteService(record)}>
+            删除
+          </span>
+        </>
+      )
+    },
   },
 ]
