@@ -7,12 +7,13 @@ import FormBottom from 'src/components/FormBottom'
 import FormSelect from 'src/components/FormSelect'
 import FormInput from 'src/components/FormInput'
 import FormImage from 'src/components/FormImage'
-import { buildParameters } from 'src/utils/common'
+import { buildParameters, parseSearches } from 'src/utils/common'
 import FormEnableRadio from 'src/components/FormEnableRadio'
 import { useSelector } from 'react-redux'
 
-const SchoolAdmin = ({ match, history }) => {
+const SchoolAdmin = ({ match, history, location }) => {
   const { id: adminId } = match.params
+  const { schoolId: defaultSchoolId } = parseSearches(location)
   const { allSchools } = useSelector((state) => state.app)
   const [form] = Form.useForm()
   const [admin, setAdmin] = useState()
@@ -66,6 +67,7 @@ const SchoolAdmin = ({ match, history }) => {
           label="学校"
           name="schoolId"
           message="请选择学校"
+          initialValue={defaultSchoolId ? Number(defaultSchoolId) : null}
         />
         <FormEnableRadio />
         <FormBottom path="/school/user" />

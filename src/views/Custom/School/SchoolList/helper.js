@@ -1,9 +1,15 @@
 import React from 'react'
-import { formatTime } from 'src/utils/common'
+import { copyToClipboard, formatTime } from 'src/utils/common'
 import JjtAvatar from 'src/components/Avatar'
 import { Divider, Switch } from 'antd'
+import Button from 'antd/es/button'
 
-export const getColumns = (editSchool, createService, deleteSchool) => [
+export const getColumns = (
+  editSchool,
+  updateSchool,
+  createServiceOrAdmin,
+  deleteSchool
+) => [
   {
     title: '序号',
     key: 'index',
@@ -28,11 +34,37 @@ export const getColumns = (editSchool, createService, deleteSchool) => [
     render: (text, record) => {
       return (
         <Switch
-          disabled={true}
+          onChange={() => updateSchool(record)}
           checkedChildren="启用"
           unCheckedChildren="禁用"
           checked={record.isEnable}
         />
+      )
+    },
+  },
+  {
+    title: '学校链接',
+    dataIndex: 'hashCode',
+    key: 'hashCode',
+    render: (text, record) => {
+      const link = `${process.env.REACT_APP_SCHOOL_ADMIN_URL}${record.hashCode}`
+      return (
+        <span>
+          <Button
+            style={{ marginRight: '5px' }}
+            size="small"
+            onClick={() => window.open(link, '_blank')}
+          >
+            打开
+          </Button>
+          <Button
+            style={{ marginRight: '5px' }}
+            size="small"
+            onClick={() => copyToClipboard(link)}
+          >
+            复制
+          </Button>
+        </span>
       )
     },
   },
@@ -66,8 +98,18 @@ export const getColumns = (editSchool, createService, deleteSchool) => [
           编辑
         </span>
         <Divider type="vertical" />
-        <span className="table-action" onClick={() => createService(record)}>
+        <span
+          className="table-action"
+          onClick={() => createServiceOrAdmin(record, 'serviceSpan')}
+        >
           创建服务
+        </span>
+        <Divider type="vertical" />
+        <span
+          className="table-action"
+          onClick={() => createServiceOrAdmin(record, 'user')}
+        >
+          创建管理员
         </span>
         <Divider type="vertical" />
         <span className="table-action" onClick={() => deleteSchool(record)}>

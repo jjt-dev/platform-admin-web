@@ -25,6 +25,18 @@ const SchoolAdminList = ({ history }) => {
     confirmUpdate(entity)
   }
 
+  const updateAdminStatus = (admin) => {
+    const { isEnable } = admin
+    const entity = {
+      status: isEnable ? '禁用' : '启用',
+      title: '管理员',
+      titleValue: admin.username,
+      path: `/client/school/admin/enable?id=${admin.id}&isEnable=${!isEnable}`,
+      callback: () => shoolAdmins.fetchTable(),
+    }
+    confirmUpdate(entity)
+  }
+
   const editAdmin = (admin) => {
     history.push(`/school/user/edit/${admin.id}`)
   }
@@ -47,7 +59,12 @@ const SchoolAdminList = ({ history }) => {
       />
       <CustomTable
         {...shoolAdmins}
-        columns={getColumns(editAdmin, setAdminToChangePwd, deleteAdmin)}
+        columns={getColumns(
+          editAdmin,
+          updateAdminStatus,
+          setAdminToChangePwd,
+          deleteAdmin
+        )}
         rowKey="id"
       />
       {adminToChangePwd && (

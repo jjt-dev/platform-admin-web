@@ -21,12 +21,24 @@ const SchoolList = ({ history }) => {
     confirmUpdate(entity)
   }
 
+  const updateSchoolStatus = (school) => {
+    const { isEnable } = school
+    const entity = {
+      status: isEnable ? '禁用' : '启用',
+      title: '学校',
+      titleValue: school.name,
+      path: `/client/school/enable?id=${school.id}&isEnable=${!isEnable}`,
+      callback: () => shoolList.fetchTable(),
+    }
+    confirmUpdate(entity)
+  }
+
   const editSchool = (school) => {
     history.push(`/school/edit/${school.id}`)
   }
 
-  const createService = (school) => {
-    history.push(`/school/serviceSpan/edit?schoolId=${school.id}`)
+  const createServiceOrAdmin = (school, type) => {
+    history.push(`/school/${type}/edit?schoolId=${school.id}`)
   }
 
   return (
@@ -39,7 +51,12 @@ const SchoolList = ({ history }) => {
       />
       <CustomTable
         {...shoolList}
-        columns={getColumns(editSchool, createService, deleteSchool)}
+        columns={getColumns(
+          editSchool,
+          updateSchoolStatus,
+          createServiceOrAdmin,
+          deleteSchool
+        )}
         rowKey="id"
       />
     </div>

@@ -3,7 +3,12 @@ import { formatTime } from 'src/utils/common'
 import JjtAvatar from 'src/components/Avatar'
 import { Divider, Switch } from 'antd'
 
-export const getColumns = (editAdmin, changeAdminPwd, deleteAdmin) => [
+export const getColumns = (
+  editAdmin,
+  updateAdmin,
+  changeAdminPwd,
+  deleteAdmin
+) => [
   {
     title: '序号',
     key: 'index',
@@ -38,7 +43,7 @@ export const getColumns = (editAdmin, changeAdminPwd, deleteAdmin) => [
     render: (text, record) => {
       return (
         <Switch
-          disabled={true}
+          onChange={() => updateAdmin(record)}
           checkedChildren="启用"
           unCheckedChildren="禁用"
           checked={record.isEnable}

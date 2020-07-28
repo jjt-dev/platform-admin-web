@@ -25,7 +25,7 @@ export const getColumns = (editService, updateService, deleteService) => [
     render: (text, record) => {
       return (
         <Switch
-          disabled={true}
+          onChange={() => updateService(record)}
           checkedChildren="启用"
           unCheckedChildren="禁用"
           checked={record.isEnable}
@@ -62,12 +62,7 @@ export const getColumns = (editService, updateService, deleteService) => [
       if (record.feeType === FeeType.fullPay.id) {
         return (
           <span>
-            <Switch
-              disabled={true}
-              checkedChildren="已支付"
-              unCheckedChildren="未支付"
-              checked={record.currState === FeeStatus.fullPayPaid}
-            />
+            {record.currState === FeeStatus.fullPayPaid ? '已支付' : '未支付'}
           </span>
         )
       }
@@ -81,10 +76,6 @@ export const getColumns = (editService, updateService, deleteService) => [
       <>
         <span className="table-action" onClick={() => editService(record)}>
           编辑
-        </span>
-        <Divider type="vertical" />
-        <span className="table-action" onClick={() => updateService(record)}>
-          {record.isEnable ? '关闭服务' : '开通服务'}
         </span>
         <Divider type="vertical" />
         <span className="table-action" onClick={() => deleteService(record)}>
