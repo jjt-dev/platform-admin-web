@@ -6,7 +6,7 @@ import api from 'src/utils/api'
 import { local, TOKEN } from 'src/utils/storage'
 import * as appAction from 'src/actions/app'
 import { useDispatch } from 'react-redux'
-import { formLayout } from 'src/utils/const'
+import { formLayoutLogin } from 'src/utils/const'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 
 const Login = ({ history }) => {
@@ -36,7 +36,7 @@ const Login = ({ history }) => {
         <img src={loginLogo} alt="图片" />
         <div className="login-container__content">
           <Form
-            {...formLayout}
+            {...formLayoutLogin}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             className="login-form"

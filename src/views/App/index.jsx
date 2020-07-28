@@ -18,13 +18,13 @@ const App = () => {
   const { loading, user } = useSelector((state) => state.app)
 
   const [activeRoute, isLoginPage, hasBreadcrumb] = useMemo(() => {
-    const activeRoute = routes.find(
-      (route) =>
-        !!matchPath(location.pathname, { path: route.path, exact: true })
-    )
+    const activeRoute =
+      routes.find(
+        (route) =>
+          !!matchPath(location.pathname, { path: route.path, exact: true })
+      ) || {}
     const isLoginPage = activeRoute.path === '/login'
-    const hasBreadcrumb = activeRoute && activeRoute.back
-    return [activeRoute, isLoginPage, hasBreadcrumb]
+    return [activeRoute, isLoginPage, activeRoute.back]
   }, [location])
 
   useEffect(() => {
