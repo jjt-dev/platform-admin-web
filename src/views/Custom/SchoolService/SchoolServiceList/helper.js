@@ -52,7 +52,7 @@ export const getColumns = (editService, updateService, deleteService) => [
       if (record.feeType === FeeType.fullPay.id) {
         return <span>{FeeType.fullPay.title}</span>
       }
-      return <span>{FeeType.commissionPay.title}</span>
+      return <span>{FeeType.commisionPay.title}</span>
     },
   },
   {

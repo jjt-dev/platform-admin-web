@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react'
 import './index.less'
 import { Form, message } from 'antd'
 import {
-  dateFormat,
+  CommisionType,
   EntityStatus,
-  FeeStatus,
   FeeType,
   formLayout,
-  timeFormat,
 } from 'src/utils/const'
 import api from 'src/utils/api'
 import FormBottom from 'src/components/FormBottom'
@@ -18,13 +16,15 @@ import { useSelector } from 'react-redux'
 import FormDate from 'src/components/FormDate'
 import FormRadioGroup from 'src/components/FormRadio'
 import moment from 'moment'
-import { commissionTypes, getFeeTypeOptions, tansformValues } from './helper'
+import { commisionTypes, getFeeTypeOptions, tansformValues } from './helper'
 import FormEnableRadio from 'src/components/FormEnableRadio'
+import FormInputNum from 'src/components/FormInputNum'
 
 const SchoolService = ({ match, history, location }) => {
   const { id: serviceId } = match.params
   const { schoolId: defaultSchoolId } = parseSearches(location)
   const [feeType, setFeeType] = useState()
+  const [commisionType, setCommisionType] = useState()
   const { allReferees, allSchools } = useSelector((state) => state.app)
   const [form] = Form.useForm()
   const isEdit = !!serviceId
@@ -35,6 +35,17 @@ const SchoolService = ({ match, history, location }) => {
       const result = await api.get(
         `/client/school/serviceSpan/item?id=${serviceId}`
       )
+      result.startTime = moment(result.startTime)
+      result.finishTime = moment(result.finishTime)
+      if (
+        result.feeType === FeeType.commisionPay.id &&
+        result.commisionType === CommisionType.percentage
+      ) {
+        setCommisionType(CommisionType.percentage)
+        result.platformCommisionFee = result.platformCommisionFee * 100
+        result.refereeCommisionFee = result.refereeCommisionFee * 100
+      }
+      setFeeType(result.feeType)
       form.setFieldsValue(result)
     }
     if (serviceId) {
@@ -55,6 +66,9 @@ const SchoolService = ({ match, history, location }) => {
   const onValuesChange = (changedValues) => {
     if (typeof changedValues.feeType === 'number') {
       setFeeType(changedValues.feeType)
+    }
+    if (typeof changedValues.commisionType === 'number') {
+      setCommisionType(changedValues.commisionType)
     }
   }
 
@@ -120,36 +134,25 @@ const SchoolService = ({ match, history, location }) => {
         />
         {feeType === FeeType.fullPay.id && (
           <>
-            <FormInput
-              type="number"
-              min={0}
-              label="晋级通费用"
-              name="platformBaseFee"
-            />
-            <FormInput
-              type="number"
-              min={0}
-              label="引荐人费用"
-              name="refereeBaseFee"
-            />
+            <FormInputNum min={0} label="晋级通费用" name="platformBaseFee" />
+            <FormInputNum min={0} label="引荐人费用" name="refereeBaseFee" />
           </>
         )}
-        {feeType === FeeType.commissionPay.id && (
+        {feeType === FeeType.commisionPay.id && (
           <>
             <FormRadioGroup
               label="提成模式"
               name="commisionType"
-              options={commissionTypes}
+              options={commisionTypes}
             />
-            <FormInput
-              type="number"
+            <FormInputNum
               min={0}
+              type={commisionType}
               label="晋级通提成"
               name="platformCommisionFee"
             />
-            <FormInput
-              type="number"
-              min={0}
+            <FormInputNum
+              type={commisionType}
               label="引荐人提成"
               name="refereeCommisionFee"
             />

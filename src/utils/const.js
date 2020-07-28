@@ -40,7 +40,7 @@ export const FeeType = {
     id: 0,
     title: '一次性支付',
   },
-  commissionPay: {
+  commisionPay: {
     id: 1,
     title: '每单提成',
   },
@@ -49,5 +49,10 @@ export const FeeType = {
 export const FeeStatus = {
   fullPayNotPay: 0,
   fullPayPaid: 10,
-  commissionPay: 20,
+  commisionPay: 20,
+}
+
+export const CommisionType = {
+  abs: 0,
+  percentage: 1,
 }

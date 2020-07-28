@@ -45,7 +45,6 @@ const SchoolServiceList = ({ history }) => {
       <ListHeader
         fetchTable={shoolServices.fetchTable}
         path="/school/serviceSpan/edit"
-        placeholder="请输入名称或联系方式"
       />
       <CustomTable
         {...shoolServices}
