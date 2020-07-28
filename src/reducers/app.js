@@ -8,6 +8,7 @@ import {
   GET_ALL_REFEREE,
   GET_ALL_SCHOOL,
 } from 'src/actions/app'
+import { PlatformReferee } from 'src/utils/const'
 
 const initState = {
   loading: false,
@@ -44,7 +45,7 @@ const app = handleActions(
       }
     },
     [GET_ALL_REFEREE]: (state, { payload }) => {
-      const result = payload.data.concat([{ id: 0, name: '晋级通' }])
+      const result = payload.data.concat([PlatformReferee])
       return {
         ...state,
         allReferees: result,

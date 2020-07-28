@@ -56,3 +56,5 @@ export const CommisionType = {
   abs: 0,
   percentage: 1,
 }
+
+export const PlatformReferee = { id: 0, name: '晋级通' }

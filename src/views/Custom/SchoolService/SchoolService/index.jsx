@@ -6,6 +6,7 @@ import {
   EntityStatus,
   FeeType,
   formLayout,
+  PlatformReferee,
 } from 'src/utils/const'
 import api from 'src/utils/api'
 import FormBottom from 'src/components/FormBottom'
@@ -113,8 +114,8 @@ const SchoolService = ({ match, history, location }) => {
           options={allReferees}
           label="引荐人"
           name="refereeId"
-          required={false}
           message="请选择引荐人"
+          initialValue={PlatformReferee.id}
         />
         <FormDate
           label="开始时间"
