@@ -3,7 +3,7 @@ import { formatTime } from 'src/utils/common'
 import JjtAvatar from 'src/components/Avatar'
 import { Divider, Switch } from 'antd'
 
-export const getColumns = (editSchool, deleteSchool) => [
+export const getColumns = (editSchool, createService, deleteSchool) => [
   {
     title: '序号',
     key: 'index',
@@ -64,6 +64,10 @@ export const getColumns = (editSchool, deleteSchool) => [
       <>
         <span className="table-action" onClick={() => editSchool(record)}>
           编辑
+        </span>
+        <Divider type="vertical" />
+        <span className="table-action" onClick={() => createService(record)}>
+          创建服务
         </span>
         <Divider type="vertical" />
         <span className="table-action" onClick={() => deleteSchool(record)}>

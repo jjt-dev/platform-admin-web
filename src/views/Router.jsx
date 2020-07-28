@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Redirect } from 'react-router'
+import { Switch } from 'react-router'
 import { Route } from 'react-router-dom'
 import School from './Custom/School/School'
 import SchoolList from './Custom/School/SchoolList'

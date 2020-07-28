@@ -1,7 +1,7 @@
 import { Form, Radio } from 'antd'
 import React from 'react'
 
-const FormSwitch = ({ label, name }) => {
+const FormEnableRadio = ({ label, name }) => {
   return (
     <Form.Item
       initialValue={true}
@@ -17,4 +17,4 @@ const FormSwitch = ({ label, name }) => {
   )
 }
 
-export default FormSwitch
+export default FormEnableRadio

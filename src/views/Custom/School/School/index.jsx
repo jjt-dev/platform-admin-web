@@ -9,7 +9,7 @@ import FormSelect from 'src/components/FormSelect'
 import FormInput from 'src/components/FormInput'
 import FormImage from 'src/components/FormImage'
 import { buildParameters } from 'src/utils/common'
-import FormSwitch from 'src/components/FormSwitch'
+import FormEnableRadio from 'src/components/FormEnableRadio'
 import * as appAction from 'src/actions/app'
 
 const School = ({ match, history }) => {
@@ -63,7 +63,7 @@ const School = ({ match, history }) => {
         <FormInput label="地址" name="address" />
         <FormInput label="联系人" name="linkMan" />
         <FormInput label="联系电话" name="linkPhone" />
-        <FormSwitch />
+        <FormEnableRadio />
         <FormSelect
           options={allReferees}
           label="引荐人"

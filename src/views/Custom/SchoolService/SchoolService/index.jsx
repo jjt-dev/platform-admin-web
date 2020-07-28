@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import './index.less'
 import { Form, message } from 'antd'
-import { EntityStatus, formLayout } from 'src/utils/const'
+import {
+  dateFormat,
+  EntityStatus,
+  FeeStatus,
+  FeeType,
+  formLayout,
+  timeFormat,
+} from 'src/utils/const'
 import api from 'src/utils/api'
 import FormBottom from 'src/components/FormBottom'
 import FormSelect from 'src/components/FormSelect'
 import FormInput from 'src/components/FormInput'
-import { buildParameters } from 'src/utils/common'
+import { buildParameters, parseSearches } from 'src/utils/common'
 import { useSelector } from 'react-redux'
 import FormDate from 'src/components/FormDate'
 import FormRadioGroup from 'src/components/FormRadio'
 import moment from 'moment'
-import { getFeeTypeOptions } from './helper'
+import { commissionTypes, getFeeTypeOptions, tansformValues } from './helper'
+import FormEnableRadio from 'src/components/FormEnableRadio'
 
-const SchoolService = ({ match, history }) => {
+const SchoolService = ({ match, history, location }) => {
   const { id: serviceId } = match.params
-  const { allReferees } = useSelector((state) => state.app)
+  const { schoolId: defaultSchoolId } = parseSearches(location)
+  const [feeType, setFeeType] = useState()
+  const { allReferees, allSchools } = useSelector((state) => state.app)
   const [form] = Form.useForm()
-  const [service, setService] = useState()
   const isEdit = !!serviceId
   const status = isEdit ? EntityStatus.EDIT : EntityStatus.CREATE
 
@@ -26,7 +35,6 @@ const SchoolService = ({ match, history }) => {
       const result = await api.get(
         `/client/school/serviceSpan/item?id=${serviceId}`
       )
-      setService(result)
       form.setFieldsValue(result)
     }
     if (serviceId) {
@@ -38,9 +46,16 @@ const SchoolService = ({ match, history }) => {
     if (!!serviceId) {
       values.id = serviceId
     }
+    values = tansformValues(values)
     await api.post(buildParameters(`/client/school/serviceSpan/edit`, values))
     message.success(`${status}服务期限成功`)
     history.push('/school/serviceSpan')
+  }
+
+  const onValuesChange = (changedValues) => {
+    if (typeof changedValues.feeType === 'number') {
+      setFeeType(changedValues.feeType)
+    }
   }
 
   /**
@@ -66,8 +81,20 @@ const SchoolService = ({ match, history }) => {
   return (
     <div className="page jjt-form">
       <div className="jjt-form-title">{status}服务期限</div>
-      <Form form={form} {...formLayout} onFinish={onFinish}>
+      <Form
+        form={form}
+        {...formLayout}
+        onFinish={onFinish}
+        onValuesChange={onValuesChange}
+      >
         <FormInput label="名称" name="title" />
+        <FormSelect
+          options={allSchools}
+          label="学校"
+          name="schoolId"
+          message="请选择学校"
+          initialValue={defaultSchoolId ? Number(defaultSchoolId) : null}
+        />
         <FormSelect
           options={allReferees}
           label="引荐人"
@@ -85,11 +112,49 @@ const SchoolService = ({ match, history }) => {
           name="finishTime"
           disabledDate={disabledEnd}
         />
+        <FormEnableRadio />
         <FormRadioGroup
           label="支付方式"
           name="feeType"
           options={getFeeTypeOptions()}
         />
+        {feeType === FeeType.fullPay.id && (
+          <>
+            <FormInput
+              type="number"
+              min={0}
+              label="晋级通费用"
+              name="platformBaseFee"
+            />
+            <FormInput
+              type="number"
+              min={0}
+              label="引荐人费用"
+              name="refereeBaseFee"
+            />
+          </>
+        )}
+        {feeType === FeeType.commissionPay.id && (
+          <>
+            <FormRadioGroup
+              label="提成模式"
+              name="commisionType"
+              options={commissionTypes}
+            />
+            <FormInput
+              type="number"
+              min={0}
+              label="晋级通提成"
+              name="platformCommisionFee"
+            />
+            <FormInput
+              type="number"
+              min={0}
+              label="引荐人提成"
+              name="refereeCommisionFee"
+            />
+          </>
+        )}
         <FormBottom path="/school/serviceSpan" />
       </Form>
     </div>
