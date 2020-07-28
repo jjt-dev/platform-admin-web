@@ -203,6 +203,7 @@ const useTableFetch = (defaultPath = null, options = {}) => {
     showQuickJumper: true,
     showSizeChanger: true,
     pageSizeOptions: defaultPageSizeOptions,
+    size: 'small',
     ...paginator,
     total,
   }
