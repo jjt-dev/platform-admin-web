@@ -54,7 +54,7 @@ const App = () => {
         'breadcrumb-active': hasBreadcrumb,
       })}
     >
-      {/* <Header user={user} /> */}
+      <Header user={user} />
       <main>
         <SideMenu
           history={history}

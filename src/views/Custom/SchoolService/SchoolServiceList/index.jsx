@@ -14,7 +14,7 @@ const SchoolServiceList = ({ history }) => {
     const entity = {
       status: '删除',
       title: '服务期限',
-      titleValue: service.name,
+      titleValue: service.title,
       path: `/client/school/serviceSpan/del?id=${service.id}`,
       callback: () => shoolServices.fetchTable(),
     }

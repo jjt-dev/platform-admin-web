@@ -1,12 +1,10 @@
 import React from 'react'
 import './index.less'
-import loginLogo from 'src/images/login_logo.png'
-import { Form, Input, Button, Divider } from 'antd'
+import { Form, Input, Button } from 'antd'
 import api from 'src/utils/api'
 import { local, TOKEN } from 'src/utils/storage'
 import * as appAction from 'src/actions/app'
 import { useDispatch } from 'react-redux'
-import { formLayoutLogin } from 'src/utils/const'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 
 const Login = ({ history }) => {
@@ -26,54 +24,34 @@ const Login = ({ history }) => {
     }
   }
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
-  }
-
   return (
     <div className="login">
       <div className="login-container">
-        <img src={loginLogo} alt="图片" />
-        <div className="login-container__content">
-          <Form
-            {...formLayoutLogin}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            className="login-form"
+        <Form layout="vertical" onFinish={onFinish}>
+          <Form.Item
+            className="login-container-title"
+            label="晋级通管理平台"
+          ></Form.Item>
+          <Form.Item
+            rules={[{ required: true }]}
+            label="用户名"
+            name="username"
           >
-            <Form.Item>
-              <Divider type="vertical" />
-              <span className="login-title">晋级通平台管理</span>
-            </Form.Item>
-            <Form.Item
-              rules={[{ required: true }]}
-              label="用户名"
-              name="username"
-            >
-              <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
-            </Form.Item>
-            <Form.Item
-              rules={[{ required: true }]}
-              label="密码"
-              name="password"
-            >
-              <Input
-                prefix={<LockOutlined />}
-                type="password"
-                placeholder="请输入密码"
-              />
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-              >
-                登录
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
+            <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
+          </Form.Item>
+          <Form.Item rules={[{ required: true }]} label="密码" name="password">
+            <Input
+              prefix={<LockOutlined />}
+              type="password"
+              placeholder="请输入密码"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button htmlType="submit" type="primary">
+              登录
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     </div>
   )
