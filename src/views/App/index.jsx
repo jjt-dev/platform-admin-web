@@ -16,18 +16,22 @@ const App = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const { loading, user } = useSelector((state) => state.app)
-  const isLoginPage = useMemo(() => location.pathname.startsWith('/login'), [
-    location,
-  ])
 
-  const activeRoute = useMemo(() => {
-    return routes.find(
+  const [activeRoute, isLoginPage, hasBreadcrumb] = useMemo(() => {
+    const activeRoute = routes.find(
       (route) =>
         !!matchPath(location.pathname, { path: route.path, exact: true })
     )
+    const isLoginPage = activeRoute.path === '/login'
+    const hasBreadcrumb = activeRoute && activeRoute.back
+    return [activeRoute, isLoginPage, hasBreadcrumb]
   }, [location])
 
-  const hasBreadcrumb = activeRoute && activeRoute.back
+  useEffect(() => {
+    if (activeRoute.path === '/') {
+      history.push('/school/list')
+    }
+  }, [activeRoute, history])
 
   useEffect(() => {
     if (!isLoginPage) {
@@ -50,7 +54,7 @@ const App = () => {
         'breadcrumb-active': hasBreadcrumb,
       })}
     >
-      <Header user={user} />
+      {/* <Header user={user} /> */}
       <main>
         <SideMenu
           history={history}

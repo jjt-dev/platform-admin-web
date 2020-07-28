@@ -39,22 +39,19 @@ const SchoolAdmin = ({ match, history }) => {
     history.push('/school/user')
   }
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
-  }
-
   return (
     <div className="page jjt-form">
       <div className="jjt-form-title">{status}学校管理员</div>
-      <Form
-        form={form}
-        {...formLayout}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-      >
+      <Form form={form} {...formLayout} onFinish={onFinish}>
         <FormInput label="用户名" name="username" disabled={isEdit} />
         <FormInput label="昵称" name="nickname" />
-        {!isEdit && <FormInput label="密码" name="password" />}
+        {!isEdit && (
+          <FormInput
+            label="密码"
+            name="password"
+            rules={[{ required: true, min: 6 }]}
+          />
+        )}
         <FormImage
           form={form}
           label="头像"

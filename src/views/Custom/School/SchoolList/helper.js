@@ -1,7 +1,7 @@
 import React from 'react'
 import { formatTime } from 'src/utils/common'
 import JjtAvatar from 'src/components/Avatar'
-import { Divider } from 'antd'
+import { Divider, Switch } from 'antd'
 
 export const getColumns = (editSchool, deleteSchool) => [
   {
@@ -26,7 +26,14 @@ export const getColumns = (editSchool, deleteSchool) => [
     title: '状态',
     key: 'isEnable',
     render: (text, record) => {
-      return <span>{record.isEnable ? '已启用' : '未启用'}</span>
+      return (
+        <Switch
+          disabled={true}
+          checkedChildren="启用"
+          unCheckedChildren="禁用"
+          checked={record.isEnable}
+        />
+      )
     },
   },
   {

@@ -1,9 +1,9 @@
 import React from 'react'
 import { formatTime } from 'src/utils/common'
 import JjtAvatar from 'src/components/Avatar'
-import { Divider } from 'antd'
+import { Divider, Switch } from 'antd'
 
-export const getColumns = (editAdmin, deleteAdmin) => [
+export const getColumns = (editAdmin, changeAdminPwd, deleteAdmin) => [
   {
     title: '序号',
     key: 'index',
@@ -36,7 +36,14 @@ export const getColumns = (editAdmin, deleteAdmin) => [
     title: '状态',
     key: 'isEnable',
     render: (text, record) => {
-      return <span>{record.isEnable ? '已启用' : '未启用'}</span>
+      return (
+        <Switch
+          disabled={true}
+          checkedChildren="启用"
+          unCheckedChildren="禁用"
+          checked={record.isEnable}
+        />
+      )
     },
   },
   {
@@ -54,9 +61,19 @@ export const getColumns = (editAdmin, deleteAdmin) => [
     title: '操作',
     key: 'action',
     render: (text, record) => (
-      <span className="table-action" onClick={() => editAdmin(record)}>
-        编辑
-      </span>
+      <>
+        <span className="table-action" onClick={() => editAdmin(record)}>
+          编辑
+        </span>
+        <Divider type="vertical" />
+        <span className="table-action" onClick={() => changeAdminPwd(record)}>
+          修改密码
+        </span>
+        <Divider type="vertical" />
+        <span className="table-action" onClick={() => deleteAdmin(record)}>
+          删除
+        </span>
+      </>
     ),
   },
 ]

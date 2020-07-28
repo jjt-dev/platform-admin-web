@@ -66,11 +66,6 @@ const Router = () => (
       return <Route key={path} path={path} exact component={comp} />
     })}
     <Route component={Welcome} />
-    <Redirect
-      to={{
-        pathname: '/school/list',
-      }}
-    />
   </Switch>
 )
 

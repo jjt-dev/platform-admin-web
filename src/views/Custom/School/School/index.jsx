@@ -42,19 +42,10 @@ const School = ({ match, history }) => {
     history.push('/school/list')
   }
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
-  }
-
   return (
     <div className="page jjt-form">
       <div className="jjt-form-title">{status}学校</div>
-      <Form
-        form={form}
-        {...formLayout}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-      >
+      <Form form={form} {...formLayout} onFinish={onFinish}>
         <FormSelect
           options={allCourses}
           label="科目"
