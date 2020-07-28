@@ -74,6 +74,11 @@ export const getColumns = (
     key: 'serviceSpanCount',
   },
   {
+    title: '管理员人数',
+    dataIndex: 'adminCount',
+    key: 'adminCount',
+  },
+  {
     title: '联系人',
     dataIndex: 'linkMan',
     key: 'linkMan',
