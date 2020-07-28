@@ -1,20 +1,20 @@
 import { Form, Radio } from 'antd'
 import React from 'react'
 
-const FormRadio = ({ label, name }) => {
+const FormRadioGroup = ({ label, name, options }) => {
   return (
-    <Form.Item
-      initialValue={true}
-      rules={[{ required: true }]}
-      label={label ?? '启用'}
-      name={name ?? 'isEnable'}
-    >
+    <Form.Item rules={[{ required: true }]} label={label} name={name}>
       <Radio.Group>
-        <Radio value={true}>是</Radio>
-        <Radio value={false}>否</Radio>
+        {options.map((option) => {
+          return (
+            <Radio key={option.value} value={option.value}>
+              {option.title}
+            </Radio>
+          )
+        })}
       </Radio.Group>
     </Form.Item>
   )
 }
 
-export default FormRadio
+export default FormRadioGroup

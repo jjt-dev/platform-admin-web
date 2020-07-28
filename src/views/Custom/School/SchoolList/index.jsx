@@ -2,7 +2,7 @@ import React from 'react'
 import './index.less'
 import CustomTable from 'src/components/CustomTable'
 import { getColumns } from './helper'
-import { confirmDelete } from 'src/utils/common'
+import { confirmUpdate } from 'src/utils/common'
 import ListHeader from 'src/components/ListHeader'
 
 const { useTableFetch } = CustomTable
@@ -12,12 +12,13 @@ const SchoolList = ({ history }) => {
 
   const deleteSchool = (school) => {
     const entity = {
+      status: '删除',
       title: '学校',
       titleValue: school.name,
       path: `/client/school/del?id=${school.id}`,
       callback: () => shoolList.fetchTable(),
     }
-    confirmDelete(entity)
+    confirmUpdate(entity)
   }
 
   const editSchool = (school) => {

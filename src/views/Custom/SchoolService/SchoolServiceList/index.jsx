@@ -2,7 +2,7 @@ import React from 'react'
 import './index.less'
 import CustomTable from 'src/components/CustomTable'
 import { getColumns } from './helper'
-import { confirmDelete } from 'src/utils/common'
+import { confirmUpdate } from 'src/utils/common'
 import ListHeader from 'src/components/ListHeader'
 
 const { useTableFetch } = CustomTable
@@ -12,12 +12,27 @@ const SchoolServiceList = ({ history }) => {
 
   const deleteService = (service) => {
     const entity = {
+      status: '删除',
       title: '服务期限',
       titleValue: service.name,
       path: `/client/school/serviceSpan/del?id=${service.id}`,
       callback: () => shoolServices.fetchTable(),
     }
-    confirmDelete(entity)
+    confirmUpdate(entity)
+  }
+
+  const updateServiceStatus = (service) => {
+    const { isEnable } = service
+    const entity = {
+      status: isEnable ? '关闭' : '开通',
+      title: '服务',
+      titleValue: service.title,
+      path: `/client/school/serviceSpan/enable?id=${
+        service.id
+      }&isEnable=${!isEnable}`,
+      callback: () => shoolServices.fetchTable(),
+    }
+    confirmUpdate(entity)
   }
 
   const editService = (service) => {
@@ -34,7 +49,7 @@ const SchoolServiceList = ({ history }) => {
       />
       <CustomTable
         {...shoolServices}
-        columns={getColumns(editService, deleteService)}
+        columns={getColumns(editService, updateServiceStatus, deleteService)}
         rowKey="id"
       />
     </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './index.less'
 import CustomTable from 'src/components/CustomTable'
 import { getColumns } from './helper'
-import { confirmDelete } from 'src/utils/common'
+import { confirmUpdate } from 'src/utils/common'
 import ListHeader from 'src/components/ListHeader'
 import ChangePwd from 'src/components/ChangePwd'
 import api from 'src/utils/api'
@@ -16,12 +16,13 @@ const SchoolAdminList = ({ history }) => {
 
   const deleteAdmin = (admin) => {
     const entity = {
+      status: '删除',
       title: '学校管理员',
       titleValue: admin.name,
       path: `/client/school/admin/del?id=${admin.id}`,
       callback: () => shoolAdmins.fetchTable(),
     }
-    confirmDelete(entity)
+    confirmUpdate(entity)
   }
 
   const editAdmin = (admin) => {

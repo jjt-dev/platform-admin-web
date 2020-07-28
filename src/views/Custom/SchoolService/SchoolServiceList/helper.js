@@ -1,6 +1,5 @@
 import React from 'react'
 import { formatTime } from 'src/utils/common'
-import JjtAvatar from 'src/components/Avatar'
 import { Divider, Switch } from 'antd'
 import { FeeType, FeeStatus } from 'src/utils/const'
 

@@ -8,7 +8,7 @@ import FormSelect from 'src/components/FormSelect'
 import FormInput from 'src/components/FormInput'
 import FormImage from 'src/components/FormImage'
 import { buildParameters } from 'src/utils/common'
-import FormRadio from 'src/components/FormRadio'
+import FormSwitch from 'src/components/FormSwitch'
 import { useSelector } from 'react-redux'
 
 const SchoolAdmin = ({ match, history }) => {
@@ -67,7 +67,7 @@ const SchoolAdmin = ({ match, history }) => {
           name="schoolId"
           message="请选择学校"
         />
-        <FormRadio />
+        <FormSwitch />
         <FormBottom path="/school/user" />
       </Form>
     </div>
