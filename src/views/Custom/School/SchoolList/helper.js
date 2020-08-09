@@ -93,32 +93,22 @@ export const getColumns = (
     title: '操作',
     key: 'action',
     render: (text, record) => (
-      <div>
-        <div>
-          <span className="table-action" onClick={() => editSchool(record)}>
-            编辑
-          </span>
-          <Divider type="vertical" />
-          <span
-            className="table-action"
-            onClick={() => createServiceOrAdmin(record, 'serviceSpan')}
-          >
-            创建服务
-          </span>
-        </div>
-        <div>
-          <span
-            className="table-action"
-            onClick={() => createServiceOrAdmin(record, 'user')}
-          >
-            创建管理员
-          </span>
-          <Divider type="vertical" />
-          <span className="table-action" onClick={() => deleteSchool(record)}>
-            删除
-          </span>
-        </div>
-      </div>
+      <>
+        <span className="table-action" onClick={() => editSchool(record)}>
+          编辑
+        </span>
+        <Divider type="vertical" />
+        <span
+          className="table-action"
+          onClick={() => createServiceOrAdmin(record, 'user')}
+        >
+          创建管理员
+        </span>
+        <Divider type="vertical" />
+        <span className="table-action" onClick={() => deleteSchool(record)}>
+          删除
+        </span>
+      </>
     ),
   },
 ]

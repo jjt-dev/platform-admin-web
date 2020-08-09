@@ -62,24 +62,6 @@ export const routes = [
     menuPath: '/school/serviceSpan',
     comp: SchoolServiceList,
   },
-  {
-    path: '/school/serviceSpan/edit',
-    menuPath: '/school/serviceSpan',
-    comp: SchoolService,
-    back: {
-      path: '/school/serviceSpan',
-      breadcrumbs: ['服务期限', '新增服务期限'],
-    },
-  },
-  {
-    path: '/school/serviceSpan/edit/:id',
-    menuPath: '/school/serviceSpan',
-    comp: SchoolService,
-    back: {
-      path: '/school/serviceSpan',
-      breadcrumbs: ['服务期限', '编辑服务期限'],
-    },
-  },
   { path: '/', comp: Welcome },
   { path: '/login', comp: Login },
 ]
