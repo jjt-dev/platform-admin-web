@@ -69,11 +69,6 @@ export const getColumns = (
     },
   },
   {
-    title: '开通期数',
-    dataIndex: 'serviceSpanCount',
-    key: 'serviceSpanCount',
-  },
-  {
     title: '管理员人数',
     dataIndex: 'adminCount',
     key: 'adminCount',
