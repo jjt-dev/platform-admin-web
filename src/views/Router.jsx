@@ -5,8 +5,6 @@ import School from './Custom/School/School'
 import SchoolList from './Custom/School/SchoolList'
 import SchoolAdmin from './Custom/SchoolAdmin/SchoolAdmin'
 import SchoolAdminList from './Custom/SchoolAdmin/SchoolAdminList'
-import SchoolService from './Custom/SchoolService/SchoolService'
-import SchoolServiceList from './Custom/SchoolService/SchoolServiceList'
 import Login from './Login'
 import Welcome from './Welcome'
 
@@ -56,11 +54,6 @@ export const routes = [
       path: '/school/user',
       breadcrumbs: ['学校管理员', '编辑管理员'],
     },
-  },
-  {
-    path: '/school/serviceSpan',
-    menuPath: '/school/serviceSpan',
-    comp: SchoolServiceList,
   },
   { path: '/', comp: Welcome },
   { path: '/login', comp: Login },
