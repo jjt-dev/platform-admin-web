@@ -28,5 +28,6 @@ const getColumns = (agentLevels) => (deleteAgent, updateAgentStatus) => [
   getRow('电话', 'phone'),
   getSwitchRow(updateAgentStatus),
   getDateRow('创建时间', 'createTime'),
+  getRow('联系人', 'linkMan'),
   getActionRow((record) => `/agent/edit/${record.id}`, deleteAgent),
 ]

@@ -19,19 +19,23 @@ export const routes = [
   {
     path: '/agent/edit',
     menuPath: '/agent/list',
+    apiPath: '/client/agent',
+    title: '代理商',
     comp: Agent,
     back: {
       path: '/agent/list',
-      breadcrumbs: ['代理列表', '新增代理'],
+      breadcrumbs: ['代理商列表', '新增代理商'],
     },
   },
   {
     path: '/agent/edit/:id',
     menuPath: '/agent/list',
+    apiPath: '/client/agent',
+    title: '代理商',
     comp: Agent,
     back: {
       path: '/agent/list',
-      breadcrumbs: ['代理列表', '编辑代理'],
+      breadcrumbs: ['代理商列表', '编辑代理商'],
     },
   },
   {

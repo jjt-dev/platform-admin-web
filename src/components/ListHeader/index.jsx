@@ -1,12 +1,16 @@
-import { Input } from 'antd'
-import Button from 'antd/es/button'
+import { Button, Input } from 'antd'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
-import './index.less'
 
-const ListHeader = ({ fetchTable, path, placeholder }) => {
+const ListHeader = ({
+  fetchTable,
+  search: defaultSearch,
+  showAdd,
+  addCallback,
+  placeholder = '请输入查询条件',
+}) => {
   const history = useHistory()
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState(defaultSearch?.keyword ?? '')
 
   const handleSearch = () => {
     fetchTable({ keyword: search })
@@ -17,9 +21,21 @@ const ListHeader = ({ fetchTable, path, placeholder }) => {
     fetchTable({ keyword: '' })
   }
 
+  const handleAdd = () => {
+    if (typeof addCallback === 'string') {
+      history.push(addCallback)
+      return
+    }
+    addCallback()
+  }
+
   return (
     <div className="list-header">
-      <Button type="primary" onClick={() => history.push(path)}>
+      <Button
+        type="primary"
+        onClick={handleAdd}
+        style={{ visibility: showAdd ? 'visible' : 'hidden' }}
+      >
         新增
       </Button>
       <div className="list-header-right">
