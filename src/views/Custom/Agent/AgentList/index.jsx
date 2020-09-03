@@ -7,7 +7,7 @@ import ListHeader from 'src/components/ListHeader'
 
 const { useTableFetch } = CustomTable
 
-const SchoolList = ({ history }) => {
+const AgentList = ({ history }) => {
   const shoolList = useTableFetch(`/client/school/page`)
 
   const deleteSchool = (school) => {
@@ -63,4 +63,4 @@ const SchoolList = ({ history }) => {
   )
 }
 
-export default SchoolList
+export default AgentList

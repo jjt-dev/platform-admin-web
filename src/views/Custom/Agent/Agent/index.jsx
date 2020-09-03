@@ -12,7 +12,7 @@ import { buildParameters } from 'src/utils/common'
 import FormEnableRadio from 'src/components/FormEnableRadio'
 import * as appAction from 'src/actions/app'
 
-const School = ({ match, history }) => {
+const Agent = ({ match, history }) => {
   const dispatch = useDispatch()
   const { id: schoolId } = match.params
   const [school, setSchool] = useState()
@@ -78,4 +78,4 @@ const School = ({ match, history }) => {
   )
 }
 
-export default School
+export default Agent

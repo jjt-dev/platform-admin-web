@@ -1,43 +1,30 @@
-import React, { useEffect, useMemo } from 'react'
-import { Spin } from 'antd'
-import Header from 'src/views/App/Header'
-import { useSelector, useDispatch } from 'react-redux'
-import * as appAction from 'src/actions/app'
-import Router, { routes } from '../Router'
 import './index.less'
-import { matchPath, useHistory, useLocation } from 'react-router'
-import ErrorBoundary from 'src/components/ErrorBoundary'
-import SideMenu from './SideMenu'
+
+import { Spin } from 'antd'
 import classnames from 'classnames'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import * as appAction from 'src/actions/app'
+import ErrorBoundary from 'src/components/ErrorBoundary'
+import useActiveRoute from 'src/hooks/useActiveRoute'
+import useLogin from 'src/hooks/useLogin'
+import Header from 'src/views/App/Header'
 import JjtBreadcrumb from 'src/views/App/JjtBreadcrumb'
 
+import Router from '../Router'
+import SideMenu from './SideMenu'
+
 const App = () => {
-  const history = useHistory()
-  const location = useLocation()
+  const activeRoute = useActiveRoute()
+  const isLogin = useLogin()
   const dispatch = useDispatch()
   const { loading, user } = useSelector((state) => state.app)
 
-  const [activeRoute, isLoginPage, hasBreadcrumb] = useMemo(() => {
-    const activeRoute =
-      routes.find(
-        (route) =>
-          !!matchPath(location.pathname, { path: route.path, exact: true })
-      ) || {}
-    const isLoginPage = activeRoute.path === '/login'
-    return [activeRoute, isLoginPage, activeRoute.back]
-  }, [location])
-
   useEffect(() => {
-    if (activeRoute.path === '/') {
-      history.push('/school/list')
-    }
-  }, [activeRoute, history])
-
-  useEffect(() => {
-    if (!isLoginPage) {
+    if (!isLogin) {
       dispatch(appAction.getUserInfo())
     }
-  }, [dispatch, isLoginPage])
+  }, [dispatch, isLogin])
 
   useEffect(() => {
     if (user) {
@@ -50,21 +37,16 @@ const App = () => {
   return (
     <div
       className={classnames('app', {
-        'login-page': isLoginPage,
-        'breadcrumb-active': hasBreadcrumb,
+        'login-page': isLogin,
+        'breadcrumb-active': activeRoute.back,
       })}
     >
       <Header user={user} />
       <main>
-        <SideMenu
-          history={history}
-          location={location}
-          navs={user?.navs}
-          activeRoute={activeRoute}
-        />
+        <SideMenu navs={user?.navs} activeRoute={activeRoute} />
         <ErrorBoundary>
-          <JjtBreadcrumb activeRoute={activeRoute} history={history} />
-          {isLoginPage || user ? <Router /> : <div></div>}
+          <JjtBreadcrumb />
+          {isLogin || user ? <Router /> : <div></div>}
         </ErrorBoundary>
       </main>
       {loading && <Spin />}

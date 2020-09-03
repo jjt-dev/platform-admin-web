@@ -11,7 +11,7 @@ import { buildParameters, parseSearches } from 'src/utils/common'
 import FormEnableRadio from 'src/components/FormEnableRadio'
 import { useSelector } from 'react-redux'
 
-const SchoolAdmin = ({ match, history, location }) => {
+const AgentAdmin = ({ match, history, location }) => {
   const { id: adminId } = match.params
   const { schoolId: defaultSchoolId } = parseSearches(location)
   const { allSchools } = useSelector((state) => state.app)
@@ -76,4 +76,4 @@ const SchoolAdmin = ({ match, history, location }) => {
   )
 }
 
-export default SchoolAdmin
+export default AgentAdmin

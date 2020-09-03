@@ -10,7 +10,7 @@ import { message } from 'antd'
 
 const { useTableFetch } = CustomTable
 
-const SchoolAdminList = ({ history }) => {
+const AgentAdminList = ({ history }) => {
   const [adminToChangePwd, setAdminToChangePwd] = useState()
   const shoolAdmins = useTableFetch(`/client/school/admin/page`)
 
@@ -78,4 +78,4 @@ const SchoolAdminList = ({ history }) => {
   )
 }
 
-export default SchoolAdminList
+export default AgentAdminList

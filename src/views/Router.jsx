@@ -1,61 +1,59 @@
 import React from 'react'
-import { Switch } from 'react-router'
+import { Redirect, Switch } from 'react-router'
 import { Route } from 'react-router-dom'
-import School from './Custom/School/School'
-import SchoolList from './Custom/School/SchoolList'
-import SchoolAdmin from './Custom/SchoolAdmin/SchoolAdmin'
-import SchoolAdminList from './Custom/SchoolAdmin/SchoolAdminList'
+import AgentList from './Custom/Agent/AgentList'
+import Agent from './Custom/Agent/Agent'
 import Login from './Login'
-import Welcome from './Welcome'
+import AgentAdminList from './Custom/AgentAdmin/AgentAdminList'
+import AgentAdmin from './Custom/AgentAdmin/AgentAdmin'
 
 export const routes = [
   {
-    path: '/school/list',
-    menuPath: '/school/list',
-    comp: SchoolList,
+    path: '/agent/list',
+    menuPath: '/agent/list',
+    comp: AgentList,
   },
   {
-    path: '/school/edit',
-    menuPath: '/school/list',
-    comp: School,
+    path: '/agent/edit',
+    menuPath: '/agent/list',
+    comp: Agent,
     back: {
-      path: '/school/list',
-      breadcrumbs: ['学校列表', '新增学校'],
+      path: '/agent/list',
+      breadcrumbs: ['代理列表', '新增代理'],
     },
   },
   {
-    path: '/school/edit/:id',
-    menuPath: '/school/list',
-    comp: School,
+    path: '/agent/edit/:id',
+    menuPath: '/agent/list',
+    comp: Agent,
     back: {
-      path: '/school/list',
-      breadcrumbs: ['学校列表', '编辑学校'],
+      path: '/agent/list',
+      breadcrumbs: ['代理列表', '编辑代理'],
     },
   },
   {
-    path: '/school/user',
-    menuPath: '/school/user',
-    comp: SchoolAdminList,
+    path: '/agent/user',
+    menuPath: '/agent/user',
+    comp: AgentAdminList,
   },
   {
-    path: '/school/user/edit',
-    menuPath: '/school/user',
-    comp: SchoolAdmin,
+    path: '/agent/user/edit',
+    menuPath: '/agent/user',
+    comp: AgentAdmin,
     back: {
-      path: '/school/user',
-      breadcrumbs: ['学校管理员', '新增管理员'],
+      path: '/agent/user',
+      breadcrumbs: ['代理管理员', '新增管理员'],
     },
   },
   {
-    path: '/school/user/edit/:id',
-    menuPath: '/school/user',
-    comp: SchoolAdmin,
+    path: '/agent/user/edit/:id',
+    menuPath: '/agent/user',
+    comp: AgentAdmin,
     back: {
-      path: '/school/user',
-      breadcrumbs: ['学校管理员', '编辑管理员'],
+      path: '/agent/user',
+      breadcrumbs: ['代理管理员', '编辑管理员'],
     },
   },
-  { path: '/', comp: Welcome },
   { path: '/login', comp: Login },
 ]
 
@@ -65,7 +63,11 @@ const Router = () => (
       const { path, comp } = route
       return <Route key={path} path={path} exact component={comp} />
     })}
-    <Route component={Welcome} />
+    <Redirect
+      to={{
+        pathname: '/agent/list',
+      }}
+    />
   </Switch>
 )
 

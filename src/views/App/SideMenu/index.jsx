@@ -7,11 +7,13 @@ import {
   BookOutlined,
   ContactsOutlined,
 } from '@ant-design/icons'
+import { useHistory } from 'react-router'
 
 const { SubMenu } = Menu
 const rootMenuPid = 1
 
-const SideMenu = ({ history, navs = [], activeRoute }) => {
+const SideMenu = ({ navs = [], activeRoute }) => {
+  const history = useHistory()
   const [selectedKeys, setSelectedKeys] = useState([])
   const [rootNavKeys, menus] = useMemo(() => {
     const rootNavs = navs.filter((nav) => nav.pid === rootMenuPid)
@@ -85,6 +87,6 @@ export default SideMenu
 const menuIcons = {
   '/system': <AppstoreOutlined />,
   '/subject': <BookOutlined />,
-  '/school': <ContactsOutlined />,
+  '/agent': <ContactsOutlined />,
   '/business': <AccountBookOutlined />,
 }
