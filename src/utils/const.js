@@ -35,26 +35,17 @@ export const EntityStatus = {
   EDIT: '编辑',
 }
 
-export const FeeType = {
-  fullPay: {
-    id: 0,
-    title: '一次性支付',
-  },
-  commisionPay: {
+export const AgentLevel = {
+  one: {
     id: 1,
-    title: '每单提成',
+    title: '一级代理',
+  },
+  two: {
+    id: 2,
+    title: '二级代理',
+  },
+  three: {
+    id: 3,
+    title: '三级代理',
   },
 }
-
-export const FeeStatus = {
-  fullPayNotPay: 0,
-  fullPayPaid: 10,
-  commisionPay: 20,
-}
-
-export const CommisionType = {
-  abs: 0,
-  percentage: 1,
-}
-
-export const PlatformReferee = { id: 0, name: '晋级通' }

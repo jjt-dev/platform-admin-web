@@ -1,6 +1,6 @@
 import React from 'react'
 import { Table } from 'antd'
-import useTableFetch from './useTableFetch'
+import useTableFetch from 'src/hooks/useTableFetch'
 
 const CustomTable = ({
   pagination,
@@ -46,10 +46,12 @@ const CustomTable = ({
   return (
     <Table
       {...tableProps}
+      loading={false}
+      bordered={true}
       rowSelection={rowSelection}
       pagination={pagination && finalPagination}
-      onChange={(paginator, filters, sorter) =>
-        fetchTable({ __tableChange__: { paginator, filters, sorter } })
+      onChange={(paginator, filters) =>
+        fetchTable({ __tableChange__: { paginator, filters } })
       }
     />
   )

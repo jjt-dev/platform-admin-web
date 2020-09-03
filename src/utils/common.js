@@ -1,12 +1,7 @@
-import * as queryString from 'query-string'
 import moment from 'moment'
 import { message } from 'antd'
 import confirm from 'antd/lib/modal/confirm'
 import api from './api'
-
-export const parseSearches = (location) => {
-  return queryString.parse(location.search)
-}
 
 /**
  * @param {*} value long值型的时间值
@@ -24,9 +19,9 @@ export const formatTime = (value, format = 'YYYY-MM-DD') => {
   return []
 }
 
-export const findById = (arrs, id) => {
-  const result = arrs.find((item) => item.id === id)
-  return result ?? {}
+export const findById = (obj, id, prop = 'id') => {
+  const arrs = Array.isArray(obj) ? obj : Object.values(obj)
+  return arrs.find((item) => item[prop] === id) ?? {}
 }
 
 export const getApiRootImg = () => process.env.REACT_APP_API_IMAGE

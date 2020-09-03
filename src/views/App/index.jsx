@@ -26,14 +26,6 @@ const App = () => {
     }
   }, [dispatch, isLogin])
 
-  useEffect(() => {
-    if (user) {
-      dispatch(appAction.getAllCourses())
-      dispatch(appAction.getAllReferees())
-      dispatch(appAction.getAllSchools())
-    }
-  }, [dispatch, user])
-
   return (
     <div
       className={classnames('app', {
@@ -41,7 +33,7 @@ const App = () => {
         'breadcrumb-active': activeRoute.back,
       })}
     >
-      <Header user={user} />
+      {/* <Header user={user} /> */}
       <main>
         <SideMenu navs={user?.navs} activeRoute={activeRoute} />
         <ErrorBoundary>

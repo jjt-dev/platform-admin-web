@@ -1,25 +1,27 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { debounce } from 'lodash'
-import CustomTable from '.'
+import { isNotEmpty, buildParameters } from 'src/utils/common'
+import api from 'src/utils/api'
+import { session } from 'src/utils/storage'
 
 const defaultPageSizeOptions = ['10', '20', '30', '50', '100']
 
 const useTableFetch = (defaultPath = null, options = {}) => {
   const { defaultValue = [], ...defaultSearch } = options
+  const storageId = buildParameters(defaultPath, defaultSearch)
   const [path, setPath] = useState(defaultPath)
   const [data, setData] = useState(defaultValue)
   const [hasPagination, setHasPagination] = useState(true)
   const [refreshInterval, setRefreshInterval] = useState()
   const [total, setTotal] = useState(0)
   const [forceRefreshCount, setForceRefreshCount] = useState(0)
-  const [paginator, setPaignator] = useState({
-    current: 1,
-    pageSize: Number(defaultPageSizeOptions[0]),
-  })
-  const [sorter, setSorter] = useState({})
+  const [paginator, setPaignator] = useState(getSavedPaginator(storageId))
   const [filters, setFilters] = useState({})
   const defaultSearchRef = useRef(defaultSearch)
-  const [search, setSearch] = useState(defaultSearchRef.current)
+  const [search, setSearch] = useState({
+    ...getSavedSearch(storageId),
+    ...defaultSearchRef.current,
+  })
   const [loading, setLoading] = useState(false)
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const rowSelection = {
@@ -34,6 +36,10 @@ const useTableFetch = (defaultPath = null, options = {}) => {
     }))
   }, [])
 
+  useEffect(() => {
+    session.setItem(storageId, { paginator, search })
+  }, [defaultPath, defaultSearch, paginator, search, storageId])
+
   /**
    * __tableChange__的命名方式是为了不被用户碰巧同名
    */
@@ -43,17 +49,12 @@ const useTableFetch = (defaultPath = null, options = {}) => {
         const {
           paginator: newPaginator,
           filters: newFilters,
-          sorter: newSorter,
         } = value.__tableChange__
         setPaignator({
           current: newPaginator.current,
           pageSize: newPaginator.pageSize,
         })
         setFilters(newFilters)
-        setSorter({
-          sort: newSorter.field,
-          direction: newSorter.order,
-        })
         return
       }
 
@@ -134,7 +135,6 @@ const useTableFetch = (defaultPath = null, options = {}) => {
         search,
         paginator,
         filters,
-        sorter,
         setData,
         setTotal,
         hasPagination
@@ -153,7 +153,7 @@ const useTableFetch = (defaultPath = null, options = {}) => {
               path += `&${key}=${filters[key]}`
             }
           })
-          const result = await CustomTable.api.get(path)
+          const result = await api.get(path)
           if (hasPagination) {
             setData(result.data)
             setTotal(result.totalRecords)
@@ -170,19 +170,12 @@ const useTableFetch = (defaultPath = null, options = {}) => {
   )
 
   useEffect(() => {
-    if (!CustomTable.api || !CustomTable.api.post) {
-      console.error(
-        '没有引入api接口。请参考http://192.168.199.203/components/general/custom-table/使用说明'
-      )
-      return
-    }
     if (path) {
       debouncedFetch(
         path,
         search,
         paginator,
         filters,
-        sorter,
         setData,
         setTotal,
         hasPagination
@@ -195,7 +188,6 @@ const useTableFetch = (defaultPath = null, options = {}) => {
     forceRefreshCount,
     debouncedFetch,
     filters,
-    sorter,
     hasPagination,
   ])
 
@@ -221,13 +213,16 @@ const useTableFetch = (defaultPath = null, options = {}) => {
 
 export default useTableFetch
 
-const isNotEmpty = (value) => {
-  if (!value) return false
-  if (Array.isArray(value)) {
-    return value.length > 0
+const getSavedPaginator = (storageId) => {
+  const savedFilter = session.getItem(storageId)
+  const defaultPaginator = {
+    current: 1,
+    pageSize: Number(defaultPageSizeOptions[0]),
   }
-  if (typeof value === 'boolean') return value
-  if (value instanceof Object) return value
+  return savedFilter?.paginator ?? defaultPaginator
+}
 
-  return value.trim() !== ''
+const getSavedSearch = (storageId) => {
+  const savedFilter = session.getItem(storageId)
+  return savedFilter?.search ?? {}
 }

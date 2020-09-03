@@ -10,7 +10,10 @@ import AgentAdmin from './Custom/AgentAdmin/AgentAdmin'
 export const routes = [
   {
     path: '/agent/list',
+    editPath: '/agent/edit',
     menuPath: '/agent/list',
+    apiPath: '/client/agent',
+    title: '代理商',
     comp: AgentList,
   },
   {
