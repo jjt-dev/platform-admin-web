@@ -2,6 +2,7 @@ import moment from 'moment'
 import { message } from 'antd'
 import confirm from 'antd/lib/modal/confirm'
 import api from './api'
+import { EntityStatus } from './const'
 
 /**
  * @param {*} value long值型的时间值
@@ -59,6 +60,18 @@ export const buildParameters = (path, parameters) => {
     }
   })
   return path
+}
+
+export const buildFormPath = (path, parameters) => {
+  path += '?'
+  Object.keys(parameters).forEach((key) => {
+    path += `&${key}=${encodeURIComponent(parameters[key] ?? '')}`
+  })
+  return path
+}
+
+export const getStatus = (isEdit) => {
+  return isEdit ? EntityStatus.EDIT : EntityStatus.CREATE
 }
 
 // 复制指定内容

@@ -4,11 +4,13 @@ import {
   APP_SHOW_LOADING,
   APP_CLOSE_LOADING,
   APP_OAUTH_USER,
+  GET_AGENT_LEVELS,
 } from 'src/actions/app'
 
 const initState = {
   loading: false,
   user: null,
+  agentLevels: [],
 }
 
 const app = handleActions(
@@ -29,6 +31,12 @@ const app = handleActions(
       return {
         ...state,
         user: payload,
+      }
+    },
+    [GET_AGENT_LEVELS]: (state, { payload }) => {
+      return {
+        ...state,
+        agentLevels: payload,
       }
     },
   },

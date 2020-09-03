@@ -34,18 +34,3 @@ export const EntityStatus = {
   CREATE: '新增',
   EDIT: '编辑',
 }
-
-export const AgentLevel = {
-  one: {
-    id: 1,
-    title: '一级代理',
-  },
-  two: {
-    id: 2,
-    title: '二级代理',
-  },
-  three: {
-    id: 3,
-    title: '三级代理',
-  },
-}

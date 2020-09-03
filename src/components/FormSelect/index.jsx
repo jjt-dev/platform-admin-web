@@ -7,9 +7,12 @@ const FormSelect = ({
   options,
   label,
   name,
-  message,
+  message = `请选择${label}`,
   required,
   initialValue,
+  valueKey = 'id',
+  titleKey = 'id',
+  mode = null,
 }) => {
   return (
     <Form.Item
@@ -18,10 +21,10 @@ const FormSelect = ({
       name={name}
       initialValue={initialValue}
     >
-      <Select placeholder={message}>
+      <Select placeholder={message} mode={mode}>
         {options.map((item) => (
-          <Option key={item.id} value={item.id}>
-            {item.name}
+          <Option key={item[valueKey]} value={item[valueKey]}>
+            {item[titleKey]}
           </Option>
         ))}
       </Select>

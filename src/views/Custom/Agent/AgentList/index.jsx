@@ -1,7 +1,7 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import PageList from 'src/components/PageList'
 import { findById } from 'src/utils/common'
-import { AgentLevel } from 'src/utils/const'
 import {
   getActionRow,
   getDateRow,
@@ -12,17 +12,18 @@ import {
 } from 'src/utils/tableUtil'
 
 const AgentList = () => {
-  return <PageList columns={getColumns} />
+  const { agentLevels } = useSelector((state) => state.app)
+  return <PageList columns={getColumns(agentLevels)} />
 }
 
 export default AgentList
 
-const getColumns = (deleteAgent, updateAgentStatus) => [
+const getColumns = (agentLevels) => (deleteAgent, updateAgentStatus) => [
   tableOrder,
-  getRow('姓名', 'name'),
+  getRow('代理商名称', 'name'),
   getCustomRow(
     '代理级别',
-    (record) => findById(AgentLevel, record.currLevelId).title
+    (record) => findById(agentLevels, record.currLevelId).name
   ),
   getRow('电话', 'phone'),
   getSwitchRow(updateAgentStatus),
