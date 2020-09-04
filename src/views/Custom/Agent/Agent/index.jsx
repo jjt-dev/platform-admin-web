@@ -1,8 +1,6 @@
-import './index.less'
-
 import React from 'react'
-import PageForm from 'src/components/PageForm'
 import { useSelector } from 'react-redux'
+import PageForm from 'src/components/PageForm'
 
 const Agent = () => {
   const { agentLevels } = useSelector((state) => state.app)
@@ -13,7 +11,7 @@ export default Agent
 
 const getFormItems = (agentLevels) => [
   {
-    label: '代理商姓名',
+    label: '代理商名称',
     comp: 'FormInput',
     name: 'name',
   },
@@ -30,15 +28,15 @@ const getFormItems = (agentLevels) => [
     name: 'phone',
   },
   {
-    label: '昵称',
+    label: '联系人',
     comp: 'FormInput',
-    name: 'nickname',
+    name: 'linkMan',
   },
   {
     comp: 'FormEnableRadio',
   },
   {
-    label: '描述',
+    label: '备注',
     comp: 'FormInput',
     type: 'textarea',
     name: 'note',

@@ -39,12 +39,12 @@ const App = () => {
         'breadcrumb-active': activeRoute.back,
       })}
     >
-      {/* <Header user={user} /> */}
+      <Header user={user} />
       <main>
         <SideMenu navs={user?.navs} activeRoute={activeRoute} />
         <ErrorBoundary>
           <JjtBreadcrumb />
-          {isLogin || user ? <Router /> : <div></div>}
+          <Router />
         </ErrorBoundary>
       </main>
       {loading && <Spin />}

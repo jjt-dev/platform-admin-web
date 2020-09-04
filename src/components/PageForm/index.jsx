@@ -16,12 +16,12 @@ import FormDate from '../FormDate'
 const PageForm = ({ callback, formItems }) => {
   const match = useRouteMatch()
   const history = useHistory()
-  const { path, title, back, defaultPath = path } = useActiveRoute()
+  const { path, title, back, apiPath = path } = useActiveRoute()
   const [form] = Form.useForm()
   const entityId = match.params.id
   const isEdit = !!entityId
   const status = getStatus(isEdit)
-  const [entity] = useFetch(isEdit ? `${defaultPath}/item?id=${entityId}` : '')
+  const [entity] = useFetch(isEdit ? `${apiPath}/item?id=${entityId}` : '')
 
   useEffect(() => {
     form.setFieldsValue(entity ?? null)
@@ -31,7 +31,7 @@ const PageForm = ({ callback, formItems }) => {
     if (!!entityId) {
       values.id = entityId
     }
-    await api.post(buildFormPath(`${defaultPath}/edit`, values))
+    await api.post(buildFormPath(`${apiPath}/edit`, values))
     message.success(`${status}${title}成功`)
     if (back) {
       history.push(back.path)
