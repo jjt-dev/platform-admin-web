@@ -13,7 +13,13 @@ import FormImage from '../FormImage'
 import FormSelect from '../FormSelect'
 import FormDate from '../FormDate'
 
-const PageForm = ({ callback, formItems, titlePrefix = '' }) => {
+const PageForm = ({
+  callback,
+  formItems,
+  titlePrefix = '',
+  params: defaultParams = {},
+  backPath: customBackPath,
+}) => {
   const match = useRouteMatch()
   const history = useHistory()
   const { path, title, back, apiPath = path } = useActiveRoute()
@@ -22,6 +28,7 @@ const PageForm = ({ callback, formItems, titlePrefix = '' }) => {
   const isEdit = !!entityId
   const status = getStatus(isEdit)
   const [entity] = useFetch(isEdit ? `${apiPath}/item?id=${entityId}` : '')
+  const backPath = customBackPath ?? back?.path
 
   useEffect(() => {
     form.setFieldsValue(entity ?? null)
@@ -31,10 +38,12 @@ const PageForm = ({ callback, formItems, titlePrefix = '' }) => {
     if (!!entityId) {
       values.id = entityId
     }
-    await api.post(buildFormPath(`${apiPath}/edit`, values))
+    await api.post(
+      buildFormPath(`${apiPath}/edit`, { ...values, ...defaultParams })
+    )
     message.success(`${status}${title}成功`)
     if (back) {
-      history.push(back.path)
+      history.push(backPath)
     }
     callback && callback()
   }
@@ -62,7 +71,7 @@ const PageForm = ({ callback, formItems, titlePrefix = '' }) => {
           }
           return React.createElement(compMap[comp], rest)
         })}
-        <FormBottom path={back?.path} />
+        <FormBottom path={backPath} />
       </Form>
     </div>
   )

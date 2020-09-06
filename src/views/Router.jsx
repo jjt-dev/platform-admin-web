@@ -42,6 +42,7 @@ export const routes = [
     path: '/agent/:agentId/:agent/admin/list',
     menuPath: '/agent/list',
     apiPath: '/client/agent/admin',
+    titleProp: 'username',
     title: '管理员',
     comp: AgentAdminList,
     back: {
@@ -52,6 +53,7 @@ export const routes = [
   {
     path: '/agent/:agentId/:agentName/admin/edit',
     menuPath: '/agent/list',
+    apiPath: '/client/agent/admin',
     title: '管理员',
     comp: AgentAdmin,
     back: {
@@ -63,6 +65,7 @@ export const routes = [
   {
     path: '/agent/:agentId/:agentName/admin/edit/:id',
     menuPath: '/agent/list',
+    apiPath: '/client/agent/admin',
     title: '管理员',
     comp: AgentAdmin,
     back: {

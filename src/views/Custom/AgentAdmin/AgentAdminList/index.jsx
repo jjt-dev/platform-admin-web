@@ -16,18 +16,20 @@ const AgentAdminList = () => {
   const { agentId, agent } = useParams()
   const { apiPath } = useActiveRoute()
   const adminList = useTableFetch(`${apiPath}/page`, { agentId })
+  const addAdminPath = `/agent/${agentId}/${agent}/admin/edit`
   return (
     <PageList
-      columns={getColumns(agentId, agent)}
+      columns={getColumns(addAdminPath)}
       defaultTableList={adminList}
       title={`${agent}管理员`}
+      addCallback={addAdminPath}
     />
   )
 }
 
 export default AgentAdminList
 
-const getColumns = (agentId, agent) => (deleteAgent, updateAgentStatus) => [
+const getColumns = (addAdminPath) => (deleteAgent, updateAgentStatus) => [
   tableOrder,
   getRow('名称', 'username'),
   getRow('昵称', 'nickname'),
@@ -36,8 +38,5 @@ const getColumns = (agentId, agent) => (deleteAgent, updateAgentStatus) => [
   getSwitchRow(updateAgentStatus),
   getDateRow('创建时间', 'createTime'),
   getRow('邮箱', 'email'),
-  getActionRow(
-    (record) => `/agent/${agentId}/${agent}/admin/edit/${record.id}`,
-    deleteAgent
-  ),
+  getActionRow((record) => `${addAdminPath}/${record.id}`, deleteAgent),
 ]
