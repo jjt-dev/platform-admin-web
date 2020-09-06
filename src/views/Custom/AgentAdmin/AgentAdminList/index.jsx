@@ -1,24 +1,24 @@
 import React from 'react'
+import { useParams } from 'react-router'
 import PageList from 'src/components/PageList'
-import {
-  getActionRow,
-  getDateRow,
-  getRow,
-  tableOrder,
-  getSwitchRow,
-  getAvatarRow,
-} from 'src/utils/tableUtil'
-import useParamsSearch from 'src/hooks/useParamsSearch'
 import useActiveRoute from 'src/hooks/useActiveRoute'
 import useTableFetch from 'src/hooks/useTableFetch'
+import {
+  getActionRow,
+  getAvatarRow,
+  getDateRow,
+  getRow,
+  getSwitchRow,
+  tableOrder,
+} from 'src/utils/tableUtil'
 
 const AgentAdminList = () => {
-  const { agentId, agent } = useParamsSearch()
-  const { apiPath } = useActiveRoute(0)
+  const { agentId, agent } = useParams()
+  const { apiPath } = useActiveRoute()
   const adminList = useTableFetch(`${apiPath}/page`, { agentId })
   return (
     <PageList
-      columns={getColumns}
+      columns={getColumns(agentId, agent)}
       defaultTableList={adminList}
       title={`${agent}管理员`}
     />
@@ -27,7 +27,7 @@ const AgentAdminList = () => {
 
 export default AgentAdminList
 
-const getColumns = (deleteAgent, updateAgentStatus) => [
+const getColumns = (agentId, agent) => (deleteAgent, updateAgentStatus) => [
   tableOrder,
   getRow('名称', 'username'),
   getRow('昵称', 'nickname'),
@@ -36,5 +36,8 @@ const getColumns = (deleteAgent, updateAgentStatus) => [
   getSwitchRow(updateAgentStatus),
   getDateRow('创建时间', 'createTime'),
   getRow('邮箱', 'email'),
-  getActionRow((record) => `/agent/edit/${record.id}`, deleteAgent),
+  getActionRow(
+    (record) => `/agent/${agentId}/${agent}/admin/edit/${record.id}`,
+    deleteAgent
+  ),
 ]

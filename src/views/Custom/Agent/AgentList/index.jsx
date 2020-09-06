@@ -34,9 +34,7 @@ const getColumns = (agentLevels) => (deleteAgent, updateAgentStatus) => [
     (record) => `/agent/edit/${record.id}`,
     deleteAgent,
     (record) => (
-      <Link to={`/agent/admin/list?agentId=${record.id}&agent=${record.name}`}>
-        管理员
-      </Link>
+      <Link to={`/agent/${record.id}/${record.name}/admin/list`}>管理员</Link>
     )
   ),
 ]

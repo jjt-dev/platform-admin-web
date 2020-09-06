@@ -13,7 +13,7 @@ import FormImage from '../FormImage'
 import FormSelect from '../FormSelect'
 import FormDate from '../FormDate'
 
-const PageForm = ({ callback, formItems }) => {
+const PageForm = ({ callback, formItems, titlePrefix = '' }) => {
   const match = useRouteMatch()
   const history = useHistory()
   const { path, title, back, apiPath = path } = useActiveRoute()
@@ -43,6 +43,7 @@ const PageForm = ({ callback, formItems }) => {
     <div className="page jjt-form">
       <div className="jjt-form-title">
         {status}
+        {titlePrefix}
         {title}
       </div>
       <Form {...formLayout} form={form} onFinish={onFinish}>

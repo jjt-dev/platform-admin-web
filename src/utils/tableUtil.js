@@ -67,7 +67,7 @@ export const getActionRow = (getPath, deleteEntity, customAction) => ({
       {customAction && (
         <>
           <Divider type="vertical" />
-          {customAction()}
+          {customAction(record)}
         </>
       )}
       {deleteEntity && (
