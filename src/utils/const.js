@@ -34,3 +34,5 @@ export const EntityStatus = {
   CREATE: '新增',
   EDIT: '编辑',
 }
+
+export const agentUrl = process.env.REACT_APP_AGENT_URL

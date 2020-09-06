@@ -1,16 +1,18 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import PageList from 'src/components/PageList'
 import { findById } from 'src/utils/common'
+import { agentUrl } from 'src/utils/const'
 import {
   getActionRow,
-  getDateRow,
-  getRow,
-  tableOrder,
-  getSwitchRow,
   getCustomRow,
+  getDateRow,
+  getExternalLinkRow,
+  getRow,
+  getSwitchRow,
+  tableOrder,
 } from 'src/utils/tableUtil'
-import { Link } from 'react-router-dom'
 
 const AgentList = () => {
   const { agentLevels } = useSelector((state) => state.app)
@@ -22,6 +24,7 @@ export default AgentList
 const getColumns = (agentLevels) => (deleteAgent, updateAgentStatus) => [
   tableOrder,
   getRow('代理商名称', 'name'),
+  getExternalLinkRow(agentUrl),
   getCustomRow(
     '代理级别',
     (record) => findById(agentLevels, record.currLevelId).name

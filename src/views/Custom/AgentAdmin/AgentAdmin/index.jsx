@@ -53,5 +53,6 @@ const getFormItems = () => [
     label: '邮箱',
     comp: 'FormInput',
     name: 'email',
+    required: false,
   },
 ]

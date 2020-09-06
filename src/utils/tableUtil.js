@@ -36,6 +36,22 @@ export const getLinkRow = (title, link, placeholderNames) => {
   }
 }
 
+export const getExternalLinkRow = (url) => ({
+  title: '链接',
+  dataIndex: 'hashcode',
+  key: 'hashcode',
+  render: (text, record) => {
+    const link = `${url}${record.hashCode}`
+    return (
+      <span>
+        <Button size="small" onClick={() => window.open(link, '_blank')}>
+          打开
+        </Button>
+      </span>
+    )
+  },
+})
+
 export const getEnableRow = () => ({
   title: '已启用',
   dataIndex: 'isEnable',
