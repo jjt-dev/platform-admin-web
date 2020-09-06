@@ -20,25 +20,38 @@ const PageForm = ({
   formItems,
   titlePrefix = '',
   params: defaultParams = {},
+  defaultValues,
   backPath: customBackPath,
+  apiPath: customApiPath,
 }) => {
   const history = useHistory()
   const { path, title, back, apiPath = path } = useActiveRoute()
   const [form] = Form.useForm()
   const [entityId, isEdit, status] = usePageForm()
-  const [entity] = useFetch(isEdit ? `${apiPath}/item?id=${entityId}` : '')
+  const [entity] = useFetch(
+    getEntityPath(isEdit, apiPath, customApiPath, entityId)
+  )
   const backPath = customBackPath ?? back?.path
 
   useEffect(() => {
     form.setFieldsValue(entity ?? null)
   }, [entity, form])
 
+  useEffect(() => {
+    if (defaultValues) {
+      form.setFieldsValue(defaultValues)
+    }
+  }, [defaultValues, form])
+
   const onFinish = async (values) => {
     if (!!entityId) {
       values.id = entityId
     }
     await api.post(
-      buildFormPath(`${apiPath}/edit`, { ...values, ...defaultParams })
+      buildFormPath(getFormPath(apiPath, customApiPath), {
+        ...values,
+        ...defaultParams,
+      })
     )
     message.success(`${status}${title}成功`)
     if (back) {
@@ -65,8 +78,8 @@ const PageForm = ({
           if (comp === 'FormImage') {
             rest.imageUrl = entity ? entity[item.name] : ''
           }
-          if (hide === 'isEdit' && isEdit) {
-            return null
+          if (hide === true || (hide === 'isEdit' && isEdit)) {
+            rest.hide = true
           }
           return React.createElement(compMap[comp], rest)
         })}
@@ -84,4 +97,13 @@ const compMap = {
   FormImage,
   FormSelect,
   FormDate,
+}
+
+const getEntityPath = (isEdit, apiPath, customApiPath, entityId) => {
+  const path = customApiPath ?? `${apiPath}/item`
+  return isEdit ? `${path}?id=${entityId}` : ''
+}
+
+const getFormPath = (apiPath, customApiPath) => {
+  return customApiPath ?? `${apiPath}/edit`
 }

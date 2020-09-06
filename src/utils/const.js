@@ -30,6 +30,8 @@ export const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 }
 
+export const formItemHide = { visibility: 'hidden', height: 0, margin: 0 }
+
 export const EntityStatus = {
   CREATE: '新增',
   EDIT: '编辑',

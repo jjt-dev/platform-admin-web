@@ -23,13 +23,16 @@ export const getDateRow = (title, name) => ({
   render: (text, record) => <span>{formatTime(record[name])}</span>,
 })
 
-export const getLinkRow = (title, link, placeholderNames) => {
+export const getLinkRow = (title, link) => {
   return {
     title,
     render: (text, record) => {
       let finalLink = link
-      placeholderNames.forEach((item) => {
-        finalLink = finalLink.replace('::', record[item])
+      const linkArr = link.split('/')
+      linkArr.forEach((item) => {
+        if (item.startsWith(':')) {
+          finalLink = finalLink.replace(item, record[item.split(':')[1]])
+        }
       })
       return <Link to={finalLink}>查看</Link>
     },

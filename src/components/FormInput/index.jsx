@@ -1,5 +1,6 @@
 import { Form, Input } from 'antd'
 import React from 'react'
+import { formItemHide } from 'src/utils/const'
 
 const { TextArea } = Input
 
@@ -10,6 +11,7 @@ const FormInput = ({
   type,
   disabled,
   rules,
+  hide,
   ...rest
 }) => {
   const isDisabled = disabled === true
@@ -17,8 +19,14 @@ const FormInput = ({
   if (rules) {
     finalRules = rules
   }
+
   return (
-    <Form.Item rules={finalRules} label={label} name={name}>
+    <Form.Item
+      rules={finalRules}
+      label={label}
+      name={name}
+      style={hide ? formItemHide : {}}
+    >
       {type === 'textarea' ? (
         <TextArea rows={2} disabled={isDisabled} {...rest} />
       ) : (

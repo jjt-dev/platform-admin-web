@@ -7,6 +7,8 @@ import Login from './Login'
 import AgentAdminList from './Custom/AgentAdmin/AgentAdminList'
 import AgentAdmin from './Custom/AgentAdmin/AgentAdmin'
 import AgentLevel from './System/AgentLevel'
+import AgentOrderList from './Custom/AgentOrder/AgentOrderList'
+import AgentOrder from './Custom/AgentOrder/AgentOrder'
 
 export const routes = [
   {
@@ -73,6 +75,41 @@ export const routes = [
       path: '/agent/:agentId/:agentName/admin/list',
       params: ['agentId', 'agentName'],
       breadcrumbs: ['代理商列表', '管理员列表', '编辑管理员'],
+    },
+  },
+  {
+    path: '/agent/:agentId/:agent/order/list',
+    menuPath: '/order/list',
+    apiPath: '/client/agent/account/orders',
+    title: '订单',
+    comp: AgentOrderList,
+    back: {
+      path: '/agent/list',
+      breadcrumbs: ['代理商列表', '订单列表'],
+    },
+  },
+  {
+    path: '/agent/:agentId/:agentName/order/edit',
+    menuPath: '/agent/list',
+    apiPath: '/client/agent/account/orders',
+    title: '订单',
+    comp: AgentOrder,
+    back: {
+      path: '/agent/:agentId/:agentName/order/list',
+      params: ['agentId', 'agentName'],
+      breadcrumbs: ['代理商列表', '订单列表', '新增订单'],
+    },
+  },
+  {
+    path: '/agent/:agentId/:agentName/order/edit/:id',
+    menuPath: '/agent/list',
+    apiPath: '/client/agent/account/orders',
+    title: '订单',
+    comp: AgentOrder,
+    back: {
+      path: '/agent/:agentId/:agentName/order/list',
+      params: ['agentId', 'agentName'],
+      breadcrumbs: ['代理商列表', '订单列表', '编辑订单'],
     },
   },
   {

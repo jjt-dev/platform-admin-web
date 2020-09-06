@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import PageList from 'src/components/PageList'
 import { findById } from 'src/utils/common'
 import { agentUrl } from 'src/utils/const'
@@ -9,6 +8,7 @@ import {
   getCustomRow,
   getDateRow,
   getExternalLinkRow,
+  getLinkRow,
   getRow,
   getSwitchRow,
   tableOrder,
@@ -25,6 +25,8 @@ const getColumns = (agentLevels) => (deleteAgent, updateAgentStatus) => [
   tableOrder,
   getRow('代理商名称', 'name'),
   getExternalLinkRow(agentUrl),
+  getLinkRow('管理员', `/agent/:id/:name/admin/list`),
+  getLinkRow('订单', `/agent/:id/:name/order/list`),
   getCustomRow(
     '代理级别',
     (record) => findById(agentLevels, record.currLevelId).name
@@ -33,11 +35,5 @@ const getColumns = (agentLevels) => (deleteAgent, updateAgentStatus) => [
   getSwitchRow(updateAgentStatus),
   getDateRow('创建时间', 'createTime'),
   getRow('联系人', 'linkMan'),
-  getActionRow(
-    (record) => `/agent/edit/${record.id}`,
-    deleteAgent,
-    (record) => (
-      <Link to={`/agent/${record.id}/${record.name}/admin/list`}>管理员</Link>
-    )
-  ),
+  getActionRow((record) => `/agent/edit/${record.id}`, deleteAgent),
 ]
