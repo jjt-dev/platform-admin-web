@@ -6,6 +6,7 @@ import Agent from './Custom/Agent/Agent'
 import Login from './Login'
 import AgentAdminList from './Custom/AgentAdmin/AgentAdminList'
 import AgentAdmin from './Custom/AgentAdmin/AgentAdmin'
+import AgentLevel from './System/AgentLevel'
 
 export const routes = [
   {
@@ -73,6 +74,13 @@ export const routes = [
       params: ['agentId', 'agentName'],
       breadcrumbs: ['代理商列表', '管理员列表', '编辑管理员'],
     },
+  },
+  {
+    path: '/system/agent-level',
+    menuPath: '/system/agent-level',
+    apiPath: '/client/agent/admin',
+    title: '代理级别',
+    comp: AgentLevel,
   },
   { path: '/login', comp: Login },
 ]

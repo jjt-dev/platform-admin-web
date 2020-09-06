@@ -29,6 +29,7 @@ const App = () => {
   useEffect(() => {
     if (user) {
       dispatch(appAction.getAgentLevels())
+      dispatch(appAction.getAllCourses())
     }
   }, [dispatch, user])
 

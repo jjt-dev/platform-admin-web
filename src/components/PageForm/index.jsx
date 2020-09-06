@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react'
 import { Form, message } from 'antd'
-import { formLayout } from 'src/utils/const'
-import { getStatus, buildFormPath } from 'src/utils/common'
-import api from 'src/utils/api'
+import React, { useEffect } from 'react'
+import { useHistory } from 'react-router'
 import FormBottom from 'src/components/FormBottom'
-import useFetch from 'src/hooks/useFetch'
-import { useHistory, useRouteMatch } from 'react-router'
 import useActiveRoute from 'src/hooks/useActiveRoute'
-import FormInput from '../FormInput'
+import useFetch from 'src/hooks/useFetch'
+import usePageForm from 'src/hooks/usePageForm'
+import api from 'src/utils/api'
+import { buildFormPath } from 'src/utils/common'
+import { formLayout } from 'src/utils/const'
+
+import FormDate from '../FormDate'
 import FormEnableRadio from '../FormEnableRadio'
 import FormImage from '../FormImage'
+import FormInput from '../FormInput'
 import FormSelect from '../FormSelect'
-import FormDate from '../FormDate'
 
 const PageForm = ({
   callback,
@@ -20,13 +22,10 @@ const PageForm = ({
   params: defaultParams = {},
   backPath: customBackPath,
 }) => {
-  const match = useRouteMatch()
   const history = useHistory()
   const { path, title, back, apiPath = path } = useActiveRoute()
   const [form] = Form.useForm()
-  const entityId = match.params.id
-  const isEdit = !!entityId
-  const status = getStatus(isEdit)
+  const [entityId, isEdit, status] = usePageForm()
   const [entity] = useFetch(isEdit ? `${apiPath}/item?id=${entityId}` : '')
   const backPath = customBackPath ?? back?.path
 

@@ -6,7 +6,7 @@ const AgentAdmin = () => {
   const { agentId, agentName } = useParams()
   return (
     <PageForm
-      formItems={getFormItems()}
+      formItems={formItems}
       titlePrefix={agentName}
       backPath={`/agent/${agentId}/${agentName}/admin/list`}
       params={{ agentId }}
@@ -16,7 +16,7 @@ const AgentAdmin = () => {
 
 export default AgentAdmin
 
-const getFormItems = () => [
+const formItems = [
   {
     label: '名称',
     comp: 'FormInput',

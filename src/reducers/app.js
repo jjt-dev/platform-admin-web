@@ -5,12 +5,14 @@ import {
   APP_CLOSE_LOADING,
   APP_OAUTH_USER,
   GET_AGENT_LEVELS,
+  GET_ALL_COURSES,
 } from 'src/actions/app'
 
 const initState = {
   loading: false,
   user: null,
   agentLevels: [],
+  allCourses: [],
 }
 
 const app = handleActions(
@@ -37,6 +39,12 @@ const app = handleActions(
       return {
         ...state,
         agentLevels: payload,
+      }
+    },
+    [GET_ALL_COURSES]: (state, { payload }) => {
+      return {
+        ...state,
+        allCourses: payload.data,
       }
     },
   },
