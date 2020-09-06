@@ -29,6 +29,13 @@ const getFormItems = () => [
     name: 'nickname',
   },
   {
+    label: '密码',
+    comp: 'FormInput',
+    name: 'password',
+    hide: 'isEdit',
+    rules: [{ required: true }, { min: 6 }],
+  },
+  {
     label: '头像',
     name: 'faceUrl',
     comp: 'FormImage',

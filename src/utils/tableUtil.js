@@ -58,6 +58,12 @@ export const getSwitchRow = (update, title) => ({
   },
 })
 
+export const changePsdAction = (selectEntity) => (record) => (
+  <span className="table-action" onClick={() => selectEntity(record)}>
+    修改密码
+  </span>
+)
+
 export const getActionRow = (getPath, deleteEntity, customAction) => ({
   title: '操作',
   key: 'action',

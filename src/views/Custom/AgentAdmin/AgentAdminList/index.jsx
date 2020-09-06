@@ -10,6 +10,7 @@ import {
   getRow,
   getSwitchRow,
   tableOrder,
+  changePsdAction,
 } from 'src/utils/tableUtil'
 
 const AgentAdminList = () => {
@@ -29,7 +30,11 @@ const AgentAdminList = () => {
 
 export default AgentAdminList
 
-const getColumns = (addAdminPath) => (deleteAgent, updateAgentStatus) => [
+const getColumns = (addAdminPath) => (
+  deleteAgent,
+  updateAgentStatus,
+  selectAdmin
+) => [
   tableOrder,
   getRow('名称', 'username'),
   getRow('昵称', 'nickname'),
@@ -38,5 +43,9 @@ const getColumns = (addAdminPath) => (deleteAgent, updateAgentStatus) => [
   getSwitchRow(updateAgentStatus),
   getDateRow('创建时间', 'createTime'),
   getRow('邮箱', 'email'),
-  getActionRow((record) => `${addAdminPath}/${record.id}`, deleteAgent),
+  getActionRow(
+    (record) => `${addAdminPath}/${record.id}`,
+    deleteAgent,
+    changePsdAction(selectAdmin)
+  ),
 ]

@@ -63,11 +63,11 @@ const PageForm = ({
           if (disabled === 'isEdit') {
             rest.disabled = isEdit
           }
-          if (hide === 'isEdit') {
-            rest.hide = isEdit
-          }
           if (comp === 'FormImage') {
             rest.imageUrl = entity ? entity[item.name] : ''
+          }
+          if (hide === 'isEdit' && isEdit) {
+            return null
           }
           return React.createElement(compMap[comp], rest)
         })}

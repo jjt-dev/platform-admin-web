@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { confirmUpdate } from 'src/utils/common'
 import ListHeader from '../ListHeader'
 import CustomTable from '../CustomTable'
 import useActiveRoute from 'src/hooks/useActiveRoute'
+import ChangePwd from '../ChangePwd'
+import api from 'src/utils/api'
+import { message } from 'antd'
 
 const { useTableFetch } = CustomTable
 
@@ -20,6 +23,7 @@ const PageList = ({
   title: defaultTitle,
   customClass = '',
 }) => {
+  const [entityToChangePwd, setEntityToChangePwd] = useState()
   const {
     editPath,
     title,
@@ -67,6 +71,14 @@ const PageList = ({
     confirmUpdate(payload)
   }
 
+  const changePassword = async (newPassword) => {
+    await api.post(
+      `${apiPath}/changePsw?id=${entityToChangePwd.id}&psw=${newPassword}`
+    )
+    message.success('密码修改成功。')
+    setEntityToChangePwd(false)
+  }
+
   return (
     <div className={`page page-list ${customClass}`}>
       <div className="page-list-title">{defaultTitle ?? title}列表</div>
@@ -81,10 +93,21 @@ const PageList = ({
       )}
       <CustomTable
         {...tableList}
-        columns={columns(deleteEntity, updateEntityStatus)}
+        columns={columns(
+          deleteEntity,
+          updateEntityStatus,
+          setEntityToChangePwd
+        )}
         rowKey={rowKey}
         size={size}
       />
+      {entityToChangePwd && (
+        <ChangePwd
+          setVisible={setEntityToChangePwd}
+          title={`${title}${entityToChangePwd[titleProp]}`}
+          changePassword={changePassword}
+        />
+      )}
     </div>
   )
 }
