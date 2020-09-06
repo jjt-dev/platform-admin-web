@@ -12,7 +12,7 @@ import { useHistory } from 'react-router'
 const { SubMenu } = Menu
 const rootMenuPid = 1
 
-const SideMenu = ({ navs = [], activeRoute }) => {
+const SideMenu = ({ activeRoute }) => {
   const history = useHistory()
   const [selectedKeys, setSelectedKeys] = useState([])
   const [rootNavKeys, menus] = useMemo(() => {
@@ -24,7 +24,7 @@ const SideMenu = ({ navs = [], activeRoute }) => {
       return root
     })
     return [rootNavKeys, menus]
-  }, [navs])
+  }, [])
 
   const [defaultOpenKeys, defaultSelectedKeys] = useMemo(() => {
     let defaultSelectedKeys = []
@@ -90,3 +90,20 @@ const menuIcons = {
   '/agent': <ContactsOutlined />,
   '/business': <AccountBookOutlined />,
 }
+
+const navs = [
+  {
+    link: '/agent',
+    icon: 'iconfont iconicon_doc',
+    pid: 1,
+    id: 4,
+    title: '客户管理',
+  },
+  {
+    link: '/agent/list',
+    icon: 'iconfont icon-shujuzhanshi2',
+    pid: 4,
+    id: 7,
+    title: '代理商',
+  },
+]

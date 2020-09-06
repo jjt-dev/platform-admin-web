@@ -1,7 +1,7 @@
-import { Button, Divider, Switch } from 'antd'
+import { Button, Divider, Switch, Avatar } from 'antd'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { formatTime } from './common'
+import { formatTime, getDomain } from './common'
 
 export const tableOrder = {
   title: '序号',
@@ -58,12 +58,18 @@ export const getSwitchRow = (update, title) => ({
   },
 })
 
-export const getActionRow = (getPath, deleteEntity) => ({
+export const getActionRow = (getPath, deleteEntity, customAction) => ({
   title: '操作',
   key: 'action',
   render: (text, record) => (
     <>
       <Link to={getPath(record)}>编辑</Link>
+      {customAction && (
+        <>
+          <Divider type="vertical" />
+          {customAction()}
+        </>
+      )}
       {deleteEntity && (
         <>
           <Divider type="vertical" />
@@ -113,6 +119,13 @@ export const getDetailRow = (getPath) => ({
   title: '操作',
   key: 'action',
   render: (text, record) => <Link to={getPath(record)}>详情</Link>,
+})
+
+export const getAvatarRow = () => ({
+  title: '头像',
+  render: (text, record) => (
+    <Avatar size={45} src={`${getDomain()}${record.faceUrl}`} />
+  ),
 })
 
 export const getCustomRow = (title, getValue, width) => ({

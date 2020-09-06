@@ -39,9 +39,15 @@ export const routes = [
     },
   },
   {
-    path: '/agent/user',
-    menuPath: '/agent/user',
+    path: '/agent/admin/list',
+    menuPath: '/agent/list',
+    apiPath: '/client/agent/admin',
+    title: '管理员',
     comp: AgentAdminList,
+    back: {
+      path: '/agent/list',
+      breadcrumbs: ['代理商列表', '管理员列表'],
+    },
   },
   {
     path: '/agent/user/edit',

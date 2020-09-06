@@ -10,6 +10,7 @@ import {
   getSwitchRow,
   getCustomRow,
 } from 'src/utils/tableUtil'
+import { Link } from 'react-router-dom'
 
 const AgentList = () => {
   const { agentLevels } = useSelector((state) => state.app)
@@ -29,5 +30,13 @@ const getColumns = (agentLevels) => (deleteAgent, updateAgentStatus) => [
   getSwitchRow(updateAgentStatus),
   getDateRow('创建时间', 'createTime'),
   getRow('联系人', 'linkMan'),
-  getActionRow((record) => `/agent/edit/${record.id}`, deleteAgent),
+  getActionRow(
+    (record) => `/agent/edit/${record.id}`,
+    deleteAgent,
+    (record) => (
+      <Link to={`/agent/admin/list?agentId=${record.id}&agent=${record.name}`}>
+        管理员
+      </Link>
+    )
+  ),
 ]
