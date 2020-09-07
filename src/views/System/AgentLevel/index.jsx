@@ -1,11 +1,10 @@
 import { Form, message } from 'antd'
-import React, { useEffect, useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import FormInputNum from 'src/components/FormInputNum'
 import FormSelect from 'src/components/FormSelect'
 import PageFormCustom from 'src/components/PageFormCustom'
-import FormInput from 'src/components/FormInput'
 import api from 'src/utils/api'
-import FormInputNum from 'src/components/FormInputNum'
 
 const AgentLevel = () => {
   const { allCourses } = useSelector((state) => state.app)

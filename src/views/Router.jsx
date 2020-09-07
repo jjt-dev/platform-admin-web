@@ -4,11 +4,12 @@ import { Route } from 'react-router-dom'
 import AgentList from './Custom/Agent/AgentList'
 import Agent from './Custom/Agent/Agent'
 import Login from './Login'
-import AgentAdminList from './Custom/AgentAdmin/AgentAdminList'
-import AgentAdmin from './Custom/AgentAdmin/AgentAdmin'
+import AgentAdminList from './Custom/Agent/AgentAdmin/AgentAdminList'
+import AgentAdmin from './Custom/Agent/AgentAdmin/AgentAdmin'
 import AgentLevel from './System/AgentLevel'
-import AgentOrderList from './Custom/AgentOrder/AgentOrderList'
-import AgentOrder from './Custom/AgentOrder/AgentOrder'
+import AgentOrderList from './Custom/Agent/AgentOrder/AgentOrderList'
+import AgentOrder from './Custom/Agent/AgentOrder/AgentOrder'
+import AgentAccount from './Custom/Agent/AgentAccount'
 
 export const routes = [
   {
@@ -110,6 +111,16 @@ export const routes = [
       path: '/agent/:agentId/:agentName/order/list',
       params: ['agentId', 'agentName'],
       breadcrumbs: ['代理商列表', '订单列表', '编辑订单'],
+    },
+  },
+  {
+    path: '/agent/:agentId/:agentName/account',
+    menuPath: '/agent/list',
+    comp: AgentAccount,
+    back: {
+      path: '/agent/list',
+      params: ['agentId', 'agentName'],
+      breadcrumbs: ['代理商列表', '代理商账户信息'],
     },
   },
   {
