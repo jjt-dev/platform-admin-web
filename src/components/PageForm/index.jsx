@@ -13,6 +13,7 @@ import FormDate from '../FormDate'
 import FormEnableRadio from '../FormEnableRadio'
 import FormImage from '../FormImage'
 import FormInput from '../FormInput'
+import FormInputNum from '../FormInputNum'
 import FormSelect from '../FormSelect'
 
 const PageForm = ({
@@ -93,6 +94,7 @@ export default PageForm
 
 const compMap = {
   FormInput,
+  FormInputNum,
   FormEnableRadio,
   FormImage,
   FormSelect,

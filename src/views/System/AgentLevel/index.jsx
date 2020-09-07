@@ -5,6 +5,7 @@ import FormSelect from 'src/components/FormSelect'
 import PageFormCustom from 'src/components/PageFormCustom'
 import FormInput from 'src/components/FormInput'
 import api from 'src/utils/api'
+import FormInputNum from 'src/components/FormInputNum'
 
 const AgentLevel = () => {
   const { allCourses } = useSelector((state) => state.app)
@@ -58,11 +59,11 @@ const AgentLevel = () => {
         titleKey="name"
       />
       {levels.map((level) => (
-        <FormInput
+        <FormInputNum
           key={level.id}
           label={level.agentLevelName}
           name={level.agentLevelName}
-          type="number"
+          type="integer"
           min={0}
           suffix="元"
         />

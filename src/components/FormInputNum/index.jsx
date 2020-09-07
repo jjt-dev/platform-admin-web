@@ -2,30 +2,23 @@ import { Form, InputNumber } from 'antd'
 import React from 'react'
 import './index.less'
 
-const FormInputNum = ({ label, name, required, type }) => {
+const FormInputNum = ({ label, name, required, type, suffix, ...rest }) => {
+  const parsers = {
+    integer: (value) => value.replace(/^(0+)|[^\d]/g, ''),
+  }
+
   return (
     <Form.Item
       rules={[{ required: required ?? true }]}
       label={label}
       name={name}
     >
-      {type === 1 ? (
-        <InputNumber
-          className="form-input-number"
-          min={0}
-          max={100}
-          formatter={(value) => `${value}%`}
-          parser={(value) => value.replace('%', '')}
-        />
-      ) : (
-        <InputNumber
-          className="form-input-number"
-          formatter={(value) =>
-            `￥ ${value}`.replace(/\B(?=(\d{4})+(?!\d))/g, ',')
-          }
-          parser={(value) => value.replace(/￥\s?|(,*)/g, '')}
-        />
-      )}
+      <InputNumber
+        className="form-input-number"
+        formatter={(value) => `${value} ${suffix ?? ''}`}
+        parser={parsers[type]}
+        {...rest}
+      />
     </Form.Item>
   )
 }
