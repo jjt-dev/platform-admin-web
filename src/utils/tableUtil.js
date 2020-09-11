@@ -1,7 +1,7 @@
 import { Button, Divider, Switch, Avatar } from 'antd'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { formatTime, getDomain } from './common'
+import { copyToClipboard, formatTime, getDomain } from './common'
 
 export const tableOrder = {
   title: '序号',
@@ -49,6 +49,13 @@ export const getExternalLinkRow = (url) => ({
       <span>
         <Button size="small" onClick={() => window.open(link, '_blank')}>
           打开
+        </Button>
+        <Button
+          style={{ marginLeft: '5px' }}
+          size="small"
+          onClick={() => copyToClipboard(link)}
+        >
+          复制
         </Button>
       </span>
     )

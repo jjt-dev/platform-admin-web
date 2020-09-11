@@ -98,26 +98,3 @@ export const copyToClipboard = (clipboardContent) => {
   }
   document.body.removeChild(textArea)
 }
-
-export const confirmUpdate = ({
-  status,
-  title,
-  titleValue,
-  path,
-  callback,
-}) => {
-  confirm({
-    title: `请问您确认要${status}该${title}吗?`,
-    content: `${title}名: ${titleValue}`,
-    okText: '确定',
-    cancelText: '取消',
-    onOk: async () => {
-      await api.post(path)
-      message.success(`${title}${status}成功`)
-      callback && callback()
-    },
-    onCancel() {
-      console.log('Cancel')
-    },
-  })
-}
