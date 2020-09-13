@@ -1,4 +1,4 @@
-export const TOKEN = 'token'
+export const TOKEN = 'platformToken'
 export const SERVICE_CODE = 'serviceCode'
 
 const local = {
