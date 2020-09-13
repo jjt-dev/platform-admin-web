@@ -4,7 +4,7 @@ import './index.less'
 
 const FormInputNum = ({ label, name, required, type, suffix, ...rest }) => {
   const parsers = {
-    integer: (value) => value.replace(/^(0+)|[^\d]/g, ''),
+    integer: (value) => value.replace(/[^\d.]/g, ''),
   }
 
   return (
