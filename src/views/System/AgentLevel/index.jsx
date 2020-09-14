@@ -32,7 +32,7 @@ const AgentLevel = () => {
     if (allCourses.length > 0) {
       onCourseChange(allCourses[0].id)
     }
-  }, [allCourses, form, onCourseChange])
+  }, [allCourses, onCourseChange])
 
   const onFinish = async (values) => {
     const payload = levels.map((level) => ({

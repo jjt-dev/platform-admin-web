@@ -113,4 +113,10 @@ const navs = [
     id: 5,
     title: '代理等级',
   },
+  {
+    link: '/system/course/list',
+    pid: 2,
+    id: 8,
+    title: '学科',
+  },
 ]

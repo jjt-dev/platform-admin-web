@@ -10,6 +10,8 @@ import AgentLevel from './System/AgentLevel'
 import AgentOrderList from './Custom/Agent/AgentOrder/AgentOrderList'
 import AgentOrder from './Custom/Agent/AgentOrder/AgentOrder'
 import AgentAccount from './Custom/Agent/AgentAccount'
+import CourseList from './System/Course/CourseList'
+import Course from './System/Course/Course'
 
 export const routes = [
   {
@@ -129,6 +131,36 @@ export const routes = [
     apiPath: '/client/agent/admin',
     title: '代理级别',
     comp: AgentLevel,
+  },
+  {
+    path: '/system/course/list',
+    editPath: '/system/course/edit',
+    menuPath: '/system/course/list',
+    apiPath: '/config/course',
+    title: '学科',
+    comp: CourseList,
+  },
+  {
+    path: '/system/course/edit',
+    menuPath: '/system/course/list',
+    apiPath: '/config/course',
+    title: '学科',
+    comp: Course,
+    back: {
+      path: '/system/course/list',
+      breadcrumbs: ['学科列表', '新增学科'],
+    },
+  },
+  {
+    path: '/system/course/edit/:id',
+    menuPath: '/system/course/list',
+    apiPath: '/config/course',
+    title: '学科',
+    comp: Course,
+    back: {
+      path: '/system/course/list',
+      breadcrumbs: ['学科列表', '新增学科'],
+    },
   },
   { path: '/login', comp: Login },
 ]
