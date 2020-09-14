@@ -31,6 +31,11 @@
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "git add ."
+    }
+  },
   "scripts": {
     "start": "react-app-rewired start",
     "start:prod": "env-cmd -f .env react-app-rewired start",
@@ -71,6 +76,7 @@
     "env-cmd": "^10.1.0",
     "ftp-deploy": "^2.3.7",
     "gh-pages": "^2.2.0",
+    "husky": "^4.3.0",
     "node-banner": "^1.4.0",
     "prettier": "^2.0.4",
     "react-test-renderer": "^16.13.1"
