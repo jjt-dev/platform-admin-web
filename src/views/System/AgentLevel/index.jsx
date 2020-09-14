@@ -1,10 +1,13 @@
-import { Form, message } from 'antd'
+import { Form, message, Select } from 'antd'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import FormInputNum from 'src/components/FormInputNum'
-import FormSelect from 'src/components/FormSelect'
 import PageFormCustom from 'src/components/PageFormCustom'
 import api from 'src/utils/api'
+import {
+  courseAgentLevelEditPath,
+  courseAgentLevelPath,
+} from 'src/utils/httpUtil'
 
 const AgentLevel = () => {
   const { allCourses } = useSelector((state) => state.app)
@@ -40,7 +43,7 @@ const AgentLevel = () => {
       agentLevelId: level.agentLevelId,
       price: values[level.agentLevelName],
     }))
-    await api.post(`/config/course/agentLevel/price/edit`, payload)
+    await api.post(courseAgentLevelEditPath, payload)
     message.success('代理等级价格修改成功')
   }
 
@@ -50,13 +53,15 @@ const AgentLevel = () => {
       onFinish={onFinish}
       fullTitle="代理等级价格配置"
     >
-      <FormSelect
-        onChange={onCourseChange}
-        label="科目"
-        name="course"
-        options={allCourses}
-        titleKey="name"
-      />
+      <Form.Item label="科目" name="course">
+        <Select onChange={onCourseChange}>
+          {allCourses.map((item) => (
+            <Select.Option key={item.id} value={item.id}>
+              {item.name}
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
       {levels.map((level) => (
         <FormInputNum
           key={level.id}
@@ -72,6 +77,3 @@ const AgentLevel = () => {
 }
 
 export default AgentLevel
-
-const courseAgentLevelPath = (courseId) =>
-  `/config/course/agentLevel/price/list?courseId=${courseId}`
