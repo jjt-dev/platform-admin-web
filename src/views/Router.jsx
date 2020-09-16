@@ -12,6 +12,8 @@ import AgentOrder from './Custom/Agent/AgentOrder/AgentOrder'
 import AgentAccount from './Custom/Agent/AgentAccount'
 import CourseList from './System/Course/CourseList'
 import Course from './System/Course/Course'
+import CourseItemList from './System/Course/CourseItemList'
+import CourseItem from './System/Course/CourseItem'
 
 export const routes = [
   {
@@ -160,6 +162,41 @@ export const routes = [
     back: {
       path: '/system/course/list',
       breadcrumbs: ['学科列表', '新增学科'],
+    },
+  },
+  {
+    path: '/system/course/:courseId/:name/item/list',
+    menuPath: '/system/course/list',
+    apiPath: '/config/course/item',
+    title: '学科考项',
+    comp: CourseItemList,
+    back: {
+      path: '/system/course/list',
+      breadcrumbs: ['学科列表', '考核项目'],
+    },
+  },
+  {
+    path: '/system/course/:courseId/:name/item/edit',
+    menuPath: '/system/course/list',
+    apiPath: '/config/course/item',
+    title: '学科考项',
+    comp: CourseItem,
+    back: {
+      path: '/system/course/:courseId/:name/item/list',
+      params: ['courseId', 'name'],
+      breadcrumbs: ['学科列表', '考核项目', '新增考项'],
+    },
+  },
+  {
+    path: '/system/course/:courseId/:name/item/edit/:id',
+    menuPath: '/system/course/list',
+    apiPath: '/config/course/item',
+    title: '学科考项',
+    comp: CourseItem,
+    back: {
+      path: '/system/course/:courseId/:name/item/list',
+      params: ['courseId', 'name'],
+      breadcrumbs: ['学科列表', '考核项目', '新增考项'],
     },
   },
   { path: '/login', comp: Login },

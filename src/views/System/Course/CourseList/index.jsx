@@ -6,6 +6,7 @@ import {
   getRow,
   getSwitchRow,
   tableOrder,
+  getLinkRow,
 } from 'src/utils/tableUtil'
 
 const CourseList = () => {
@@ -19,6 +20,7 @@ const getColumns = (deleteAgent, updateAgentStatus) => [
   getRow('名称', 'name'),
   getRow('创建人', 'creatorName'),
   getCustomRow('考试时间', (record) => `${record.examDuration}秒`),
+  getLinkRow('考核项目', `/system/course/:id/:name/item/list`),
   getSwitchRow(updateAgentStatus),
   getActionRow((record) => `/system/course/edit/${record.id}`, deleteAgent),
 ]
