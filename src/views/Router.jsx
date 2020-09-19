@@ -14,6 +14,8 @@ import CourseList from './System/Course/CourseList'
 import Course from './System/Course/Course'
 import CourseItemList from './System/Course/CourseItemList'
 import CourseItem from './System/Course/CourseItem'
+import CourseGradeList from './System/Course/CourseGradeList'
+import CourseGrade from './System/Course/CourseGrade'
 
 export const routes = [
   {
@@ -161,7 +163,7 @@ export const routes = [
     comp: Course,
     back: {
       path: '/system/course/list',
-      breadcrumbs: ['学科列表', '新增学科'],
+      breadcrumbs: ['学科列表', '编辑学科'],
     },
   },
   {
@@ -196,7 +198,42 @@ export const routes = [
     back: {
       path: '/system/course/:courseId/:name/item/list',
       params: ['courseId', 'name'],
-      breadcrumbs: ['学科列表', '考核项目', '新增考项'],
+      breadcrumbs: ['学科列表', '考核项目', '编辑考项'],
+    },
+  },
+  {
+    path: '/system/course/:courseId/:name/grade/list',
+    menuPath: '/system/course/list',
+    apiPath: '/config/course/grade',
+    title: '打分等级',
+    comp: CourseGradeList,
+    back: {
+      path: '/system/course/list',
+      breadcrumbs: ['学科列表', '打分等级'],
+    },
+  },
+  {
+    path: '/system/course/:courseId/:name/grade/edit',
+    menuPath: '/system/course/list',
+    apiPath: '/config/course/grade',
+    title: '打分等级',
+    comp: CourseGrade,
+    back: {
+      path: '/system/course/:courseId/:name/grade/list',
+      params: ['courseId', 'name'],
+      breadcrumbs: ['学科列表', '打分等级', '新增打分等级'],
+    },
+  },
+  {
+    path: '/system/course/:courseId/:name/grade/edit/:id',
+    menuPath: '/system/course/list',
+    apiPath: '/config/course/grade',
+    title: '打分等级',
+    comp: CourseGrade,
+    back: {
+      path: '/system/course/:courseId/:name/grade/list',
+      params: ['courseId', 'name'],
+      breadcrumbs: ['学科列表', '考打分等级', '编辑打分等级'],
     },
   },
   { path: '/login', comp: Login },
