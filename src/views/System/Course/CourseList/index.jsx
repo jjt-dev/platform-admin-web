@@ -21,6 +21,7 @@ const getColumns = (deleteAgent, updateAgentStatus) => [
   getRow('创建人', 'creatorName'),
   getCustomRow('考试时间', (record) => `${record.examDuration}秒`),
   getLinkRow('考核项目', `/system/course/:id/:name/item/list`),
+  getLinkRow('考试等级', `/system/course/:id/:name/level/list`),
   getLinkRow('打分等级体系', `/system/course/:id/:name/grade/list`),
   getSwitchRow(updateAgentStatus),
   getActionRow((record) => `/system/course/edit/${record.id}`, deleteAgent),

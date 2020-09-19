@@ -2,20 +2,20 @@ import React from 'react'
 import { useParams } from 'react-router'
 import PageForm from 'src/components/PageForm'
 
-const CourseItem = () => {
+const CourseLevel = () => {
   const { courseId, name } = useParams()
 
   return (
     <PageForm
       formItems={getFormItems()}
       titlePrefix={name}
-      backPath={`/system/course/${courseId}/${name}/item/list`}
+      backPath={`/system/course/${courseId}/${name}/level/list`}
       defaultValues={{ courseId }}
     />
   )
 }
 
-export default CourseItem
+export default CourseLevel
 
 const getFormItems = () => [
   {
@@ -24,23 +24,28 @@ const getFormItems = () => [
     hide: true,
   },
   {
-    label: '考项名称',
+    label: '等级名称',
     comp: 'FormInput',
     name: 'name',
   },
   {
-    label: '默认差评',
+    label: '别名',
     comp: 'FormInput',
-    name: 'defaultBadComment',
+    name: 'alias',
+  },
+  {
+    label: '默认价格',
+    comp: 'FormInputNum',
+    name: 'price',
+    type: 'integer',
+    min: 0,
+    suffix: '元',
   },
   {
     label: '序号',
     comp: 'FormInputNum',
     name: 'sortOrder',
     min: 1,
-  },
-  {
-    comp: 'FormEnableRadio',
   },
   {
     label: '描述',
