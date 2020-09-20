@@ -41,6 +41,16 @@ const getFormItems = () => [
     name: 'endScore',
     min: 0,
     max: 100,
+    rules: [
+      ({ getFieldValue }) => ({
+        validator(rule, value) {
+          if (value > getFieldValue('startScore')) {
+            return Promise.resolve()
+          }
+          return Promise.reject('截止分数必须大于起始分数')
+        },
+      }),
+    ],
   },
   {
     label: '背景颜色值',
