@@ -9,16 +9,31 @@ import {
   courseAgentLevelPath,
 } from 'src/utils/httpUtil'
 
+const useTypes = {
+  exam: { id: '1', name: '考试名额' },
+  upload: { id: '2', name: '上传中台协' },
+}
+
 const AgentLevel = () => {
   const { allCourses } = useSelector((state) => state.app)
   const [form] = Form.useForm()
   const [levels, setLevels] = useState([])
+  const [useType, setUseType] = useState(useTypes.exam.id)
+
+  useEffect(() => {
+    form.setFieldsValue({ useType: useTypes.exam.id })
+  }, [form])
+
+  const onUseTypeChange = (useType) => {
+    form.setFieldsValue({ useType })
+    setUseType(useType)
+  }
 
   const onCourseChange = useCallback(
     (courseId) => {
       form.setFieldsValue({ course: courseId })
       const fetchLevels = async () => {
-        const result = await api.get(courseAgentLevelPath(courseId))
+        const result = await api.get(courseAgentLevelPath(courseId, useType))
         setLevels(result)
         const formValues = result.reduce((result, level) => {
           result[level.agentLevelName] = level.price
@@ -28,7 +43,7 @@ const AgentLevel = () => {
       }
       fetchLevels()
     },
-    [form]
+    [form, useType]
   )
 
   useEffect(() => {
@@ -42,6 +57,7 @@ const AgentLevel = () => {
       courseId: values.course,
       agentLevelId: level.agentLevelId,
       price: values[level.agentLevelName],
+      useType,
     }))
     await api.post(courseAgentLevelEditPath, payload)
     message.success('代理等级价格修改成功')
@@ -53,6 +69,15 @@ const AgentLevel = () => {
       onFinish={onFinish}
       fullTitle="代理等级价格配置"
     >
+      <Form.Item label="名额类型" name="useType">
+        <Select onChange={onUseTypeChange}>
+          {Object.values(useTypes).map((item) => (
+            <Select.Option key={item.id} value={item.id}>
+              {item.name}
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
       <Form.Item label="科目" name="course">
         <Select onChange={onCourseChange}>
           {allCourses.map((item) => (
