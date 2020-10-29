@@ -29,6 +29,7 @@ const AgentOrderList = () => {
       onOk: async () => {
         await api.post(payOrderPath(orderId))
         message.success(`支付订单成功`)
+        adminList.fetchTable()
       },
       onCancel() {
         console.log('Cancel')
@@ -72,5 +73,9 @@ const getOrderPayedRow = (confirmPay) =>
     if (record.isPayed) {
       return <div>已支付</div>
     }
-    return <Button onClick={() => confirmPay(record.id)}>确认支付</Button>
+    return (
+      <Button type="primary" onClick={() => confirmPay(record.id)}>
+        确认支付
+      </Button>
+    )
   })

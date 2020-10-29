@@ -1,7 +1,7 @@
 import { Form, Radio } from 'antd'
 import React from 'react'
 
-const FormRadioGroup = ({ label, name, options }) => {
+const FormRadio = ({ label, name, options }) => {
   return (
     <Form.Item rules={[{ required: true }]} label={label} name={name}>
       <Radio.Group>
@@ -17,4 +17,4 @@ const FormRadioGroup = ({ label, name, options }) => {
   )
 }
 
-export default FormRadioGroup
+export default FormRadio

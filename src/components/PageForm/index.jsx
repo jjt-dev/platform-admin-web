@@ -14,6 +14,7 @@ import FormEnableRadio from '../FormEnableRadio'
 import FormImage from '../FormImage'
 import FormInput from '../FormInput'
 import FormInputNum from '../FormInputNum'
+import FormRadio from '../FormRadio'
 import FormSelect from '../FormSelect'
 
 const PageForm = ({
@@ -99,6 +100,7 @@ const compMap = {
   FormImage,
   FormSelect,
   FormDate,
+  FormRadio,
 }
 
 const getEntityPath = (isEdit, apiPath, customApiPath, entityId) => {
