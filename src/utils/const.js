@@ -38,3 +38,8 @@ export const EntityStatus = {
 }
 
 export const agentUrl = process.env.REACT_APP_AGENT_URL
+
+export const useTypes = {
+  exam: { id: '1', name: '考试名额' },
+  upload: { id: '2', name: '上传中台协' },
+}

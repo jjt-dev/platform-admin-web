@@ -4,15 +4,11 @@ import { useSelector } from 'react-redux'
 import FormInputNum from 'src/components/FormInputNum'
 import PageFormCustom from 'src/components/PageFormCustom'
 import api from 'src/utils/api'
+import { useTypes } from 'src/utils/const'
 import {
   courseAgentLevelEditPath,
   courseAgentLevelPath,
 } from 'src/utils/httpUtil'
-
-const useTypes = {
-  exam: { id: '1', name: '考试名额' },
-  upload: { id: '2', name: '上传中台协' },
-}
 
 const AgentLevel = () => {
   const { allCourses } = useSelector((state) => state.app)

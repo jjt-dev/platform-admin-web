@@ -1,7 +1,7 @@
 import { message } from 'antd'
 import moment from 'moment'
 
-import { EntityStatus } from './const'
+import { EntityStatus, useTypes } from './const'
 
 /**
  * @param {*} value long值型的时间值
@@ -96,4 +96,8 @@ export const copyToClipboard = (clipboardContent) => {
     message.error('不能使用这种方法复制内容')
   }
   document.body.removeChild(textArea)
+}
+
+export const findUseType = (useTypeId) => {
+  return Object.values(useTypes).find((item) => item.id === String(useTypeId))
 }

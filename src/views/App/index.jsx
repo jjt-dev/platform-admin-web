@@ -40,9 +40,9 @@ const App = () => {
         'breadcrumb-active': activeRoute.back,
       })}
     >
-      <Header user={user} />
+      {/* <Header user={user} /> */}
       <main>
-        <SideMenu navs={user?.navs} activeRoute={activeRoute} />
+        {/* <SideMenu navs={user?.navs} activeRoute={activeRoute} /> */}
         <ErrorBoundary>
           <JjtBreadcrumb />
           <Router />
