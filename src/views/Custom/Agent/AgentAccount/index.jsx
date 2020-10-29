@@ -3,7 +3,8 @@ import React from 'react'
 import { useParams } from 'react-router'
 import PageCustom from 'src/components/PageCustom'
 import useFetch from 'src/hooks/useFetch'
-import { getRow, tableOrder } from 'src/utils/tableUtil'
+import { findUseType } from 'src/utils/common'
+import { getCustomRow, getRow, tableOrder } from 'src/utils/tableUtil'
 
 const AgentAccount = () => {
   const { agentId, agentName } = useParams()
@@ -31,4 +32,5 @@ const getColumns = () => [
   tableOrder,
   getRow('科目', 'courseName'),
   getRow('余额', 'balance'),
+  getCustomRow('余额类型', (record) => findUseType(record.useType).name),
 ]
