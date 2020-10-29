@@ -62,6 +62,7 @@ const getColumns = (confirmPay) => () => [
 const orderUseTypeRow = {
   ...getCustomRow('订单类型', (record) => findUseType(record.useType).name),
   dataIndex: 'useType',
+  filterMultiple: false,
   filters: Object.values(useTypes).map((item) => ({
     text: item.name,
     value: item.id,
