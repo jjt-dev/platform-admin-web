@@ -8,9 +8,14 @@ import {
   tableOrder,
   getLinkRow,
 } from 'src/utils/tableUtil'
+import * as appAction from 'src/actions/app'
+import { useDispatch } from 'react-redux'
 
 const CourseList = () => {
-  return <PageList columns={getColumns} />
+  const dispatch = useDispatch()
+  const getAllCourses = () => dispatch(appAction.getAllCourses())
+
+  return <PageList columns={getColumns} updateCallback={getAllCourses} />
 }
 
 export default CourseList

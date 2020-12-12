@@ -1,8 +1,13 @@
 import React from 'react'
 import PageForm from 'src/components/PageForm'
+import { useDispatch } from 'react-redux'
+import * as appAction from 'src/actions/app'
 
 const Course = () => {
-  return <PageForm formItems={getFormItems()} />
+  const dispatch = useDispatch()
+  const getAllCourses = () => dispatch(appAction.getAllCourses())
+
+  return <PageForm formItems={getFormItems()} callback={getAllCourses} />
 }
 
 export default Course
