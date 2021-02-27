@@ -153,10 +153,13 @@ export const getDetailRow = (getPath) => ({
   render: (text, record) => <Link to={getPath(record)}>详情</Link>,
 })
 
-export const getAvatarRow = () => ({
+export const getAvatarRow = (prop) => ({
   title: '头像',
   render: (text, record) => (
-    <Avatar size={45} src={`${getDomain()}${record.faceUrl}`} />
+    <Avatar
+      size={45}
+      src={`${getDomain()}${prop ? record[prop] : record.faceUrl}`}
+    />
   ),
 })
 

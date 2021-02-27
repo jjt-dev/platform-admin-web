@@ -18,6 +18,8 @@ import CourseGradeList from './System/Course/CourseGradeList'
 import CourseGrade from './System/Course/CourseGrade'
 import CourseLevelList from './System/Course/CourseLevelList'
 import CourseLevel from './System/Course/CourseLevel'
+import CourseAssociationList from './System/Course/CourseAssociationList'
+import CourseAssociation from './System/Course/CourseAssociation'
 
 export const routes = [
   {
@@ -271,6 +273,41 @@ export const routes = [
       path: '/system/course/:courseId/:name/level/list',
       params: ['courseId', 'name'],
       breadcrumbs: ['学科列表', '考试等级', '编辑考试等级'],
+    },
+  },
+  {
+    path: '/system/course/:courseId/:name/association/list',
+    menuPath: '/system/course/list',
+    apiPath: '/config/course/organization',
+    title: '学科协会',
+    comp: CourseAssociationList,
+    back: {
+      path: '/system/course/list',
+      breadcrumbs: ['学科列表', '学科协会'],
+    },
+  },
+  {
+    path: '/system/course/:courseId/:name/association/edit',
+    menuPath: '/system/course/list',
+    apiPath: '/config/course/organization',
+    title: '学科协会',
+    comp: CourseAssociation,
+    back: {
+      path: '/system/course/:courseId/:name/association/list',
+      params: ['courseId', 'name'],
+      breadcrumbs: ['学科列表', '学科协会', '新增学科协会'],
+    },
+  },
+  {
+    path: '/system/course/:courseId/:name/association/edit/:id',
+    menuPath: '/system/course/list',
+    apiPath: '/config/course/organization',
+    title: '学科协会',
+    comp: CourseAssociation,
+    back: {
+      path: '/system/course/:courseId/:name/association/list',
+      params: ['courseId', 'name'],
+      breadcrumbs: ['学科列表', '学科协会', '编辑学科协会'],
     },
   },
   { path: '/login', comp: Login },
