@@ -42,7 +42,7 @@ const App = () => {
     >
       <Header user={user} />
       <main>
-        <SideMenu navs={user?.navs} activeRoute={activeRoute} />
+        <SideMenu activeRoute={activeRoute} />
         <ErrorBoundary>
           <JjtBreadcrumb />
           <Router />

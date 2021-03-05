@@ -1,27 +1,33 @@
 import React from 'react'
 import { Redirect, Switch } from 'react-router'
 import { Route } from 'react-router-dom'
-import AgentList from './Custom/Agent/AgentList'
+
+import Console from './Console'
 import Agent from './Custom/Agent/Agent'
-import Login from './Login'
-import AgentAdminList from './Custom/Agent/AgentAdmin/AgentAdminList'
-import AgentAdmin from './Custom/Agent/AgentAdmin/AgentAdmin'
-import AgentLevel from './System/AgentLevel'
-import AgentOrderList from './Custom/Agent/AgentOrder/AgentOrderList'
-import AgentOrder from './Custom/Agent/AgentOrder/AgentOrder'
 import AgentAccount from './Custom/Agent/AgentAccount'
-import CourseList from './System/Course/CourseList'
+import AgentAdmin from './Custom/Agent/AgentAdmin/AgentAdmin'
+import AgentAdminList from './Custom/Agent/AgentAdmin/AgentAdminList'
+import AgentList from './Custom/Agent/AgentList'
+import AgentOrder from './Custom/Agent/AgentOrder/AgentOrder'
+import AgentOrderList from './Custom/Agent/AgentOrder/AgentOrderList'
+import Login from './Login'
+import AgentLevel from './System/AgentLevel'
 import Course from './System/Course/Course'
-import CourseItemList from './System/Course/CourseItemList'
-import CourseItem from './System/Course/CourseItem'
-import CourseGradeList from './System/Course/CourseGradeList'
-import CourseGrade from './System/Course/CourseGrade'
-import CourseLevelList from './System/Course/CourseLevelList'
-import CourseLevel from './System/Course/CourseLevel'
-import CourseAssociationList from './System/Course/CourseAssociationList'
 import CourseAssociation from './System/Course/CourseAssociation'
+import CourseAssociationList from './System/Course/CourseAssociationList'
+import CourseGrade from './System/Course/CourseGrade'
+import CourseGradeList from './System/Course/CourseGradeList'
+import CourseItem from './System/Course/CourseItem'
+import CourseItemList from './System/Course/CourseItemList'
+import CourseLevel from './System/Course/CourseLevel'
+import CourseLevelList from './System/Course/CourseLevelList'
+import CourseList from './System/Course/CourseList'
 
 export const routes = [
+  {
+    path: '/console',
+    comp: Console,
+  },
   {
     path: '/agent/list',
     editPath: '/agent/edit',

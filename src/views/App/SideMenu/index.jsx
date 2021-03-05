@@ -4,6 +4,7 @@ import './index.less'
 import {
   AccountBookOutlined,
   AppstoreOutlined,
+  AreaChartOutlined,
   BookOutlined,
   ContactsOutlined,
 } from '@ant-design/icons'
@@ -58,6 +59,18 @@ const SideMenu = ({ activeRoute }) => {
       theme="dark"
     >
       {menus.map((item) => {
+        if (item.mainMenu) {
+          return (
+            <Menu.Item
+              key={item.id}
+              icon={item.icon}
+              onClick={() => history.push(item.link)}
+            >
+              {item.title}
+            </Menu.Item>
+          )
+        }
+
         return (
           <SubMenu
             key={item.id}
@@ -82,6 +95,7 @@ const SideMenu = ({ activeRoute }) => {
 export default SideMenu
 
 const menuIcons = {
+  '/console': <AreaChartOutlined />,
   '/system': <AppstoreOutlined />,
   '/subject': <BookOutlined />,
   '/agent': <ContactsOutlined />,
@@ -89,6 +103,13 @@ const menuIcons = {
 }
 
 const navs = [
+  {
+    link: '/console',
+    pid: 1,
+    id: 9,
+    title: '数据统计',
+    mainMenu: true,
+  },
   {
     link: '/agent',
     pid: 1,
