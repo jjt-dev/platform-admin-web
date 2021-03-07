@@ -15,47 +15,80 @@ import {
   SmileOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { List } from 'antd'
-import React from 'react'
-import useFetch from 'src/hooks/useFetch'
+import { List, Tabs } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import api from 'src/utils/api'
+import * as appAction from 'src/actions/app'
+
+const { TabPane } = Tabs
 
 const Console = () => {
-  const [data] = useFetch(`/common/data/data1`)
+  const dispatch = useDispatch()
+  const { allCourses } = useSelector((state) => state.app)
+  const [courseId, setCourseId] = useState()
+  const [stats, setStats] = useState()
 
-  if (!data) return null
+  useEffect(() => {
+    if (allCourses.length > 0) {
+      setCourseId(allCourses[0].id)
+    }
+  }, [allCourses])
+
+  useEffect(() => {
+    const fetcher = async () => {
+      dispatch(appAction.showLoadingBar())
+      setTimeout(() => {
+        dispatch(appAction.closeLoadingBar())
+      }, 1000)
+      const result = await api.get(`/common/data/data1?courseId=${courseId}`)
+      setStats(result)
+    }
+    if (courseId) {
+      fetcher()
+    }
+  }, [courseId, dispatch])
+
+  const getList = () => (
+    <List
+      grid={grid}
+      dataSource={items}
+      renderItem={(item, index) => (
+        <List.Item>
+          <div className="console-card">
+            <div className={`console-card-icon console-card-icon-${index % 5}`}>
+              {item.icon}
+            </div>
+            <div className="console-card-stats">
+              <div>{item.label}</div>
+              <div className="console-card-stats-number">
+                {stats[item.id] ?? 0}
+              </div>
+            </div>
+          </div>
+        </List.Item>
+      )}
+    />
+  )
+
+  if (!stats || !courseId) return null
 
   return (
     <div className="page console">
-      <List
-        grid={{
-          gutter: 16,
-          xs: 1,
-          sm: 2,
-          md: 4,
-          lg: 4,
-          xl: 5,
-          xxl: 3,
-        }}
-        dataSource={stats}
-        renderItem={(item) => (
-          <List.Item>
-            <div className="console-card">
-              <div className="console-card-icon">{item.icon}</div>
-              <div className="console-card-stats">
-                <div>{item.label}</div>
-                <div>{data[item.id] ?? 0}</div>
-              </div>
-            </div>
-          </List.Item>
-        )}
-      />
+      <Tabs defaultActiveKey={courseId} type="card" onChange={setCourseId}>
+        {allCourses.map((course) => (
+          <TabPane tab={course.name} key={course.id}>
+            {getList()}
+          </TabPane>
+        ))}
+      </Tabs>
     </div>
   )
 }
 
 export default Console
 
-const stats = [
+const items = [
   {
     id: 'totalAgentCount',
     label: '代理总数',
@@ -122,3 +155,13 @@ const stats = [
     icon: <DashboardOutlined />,
   },
 ]
+
+const grid = {
+  gutter: 16,
+  xs: 1,
+  sm: 2,
+  md: 4,
+  lg: 4,
+  xl: 5,
+  xxl: 3,
+}

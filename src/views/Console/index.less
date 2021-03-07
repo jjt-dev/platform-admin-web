@@ -2,6 +2,16 @@
   width: calc(100% - 270px);
   background-color: unset !important;
 
+  .ant-tabs {
+    overflow-y: auto;
+
+    &-tab {
+      width: 100px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
   &-card {
     width: 100%;
     height: 140px;
@@ -17,12 +27,33 @@
 
     &-icon {
       font-size: 50px;
+
+      &-0 {
+        color: #40c9c6;
+      }
+      &-1 {
+        color: #36a3f7;
+      }
+      &-2 {
+        color: #f4516c;
+      }
+      &-3 {
+        color: #e6a23c;
+      }
+      &-4 {
+        color: #28a745;
+      }
     }
 
     &-stats {
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      &-number {
+        font-weight: bold;
+        font-size: 24px;
+      }
     }
   }
 }
