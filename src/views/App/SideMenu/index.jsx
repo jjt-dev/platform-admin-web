@@ -27,7 +27,12 @@ const SideMenu = ({ activeRoute }) => {
   const [defaultOpenKeys, defaultSelectedKeys] = useMemo(() => {
     let defaultSelectedKeys = []
     let defaultOpenKeys = []
+
     menus.forEach((menu) => {
+      if (menu.mainMenu) {
+        defaultSelectedKeys = [`${menu.id}`]
+      }
+
       menu.children.forEach((subMenu) => {
         if (activeRoute.menuPath === subMenu.link) {
           defaultSelectedKeys = [`${subMenu.id}`]
